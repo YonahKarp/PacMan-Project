@@ -8,11 +8,11 @@ PacMan is a popular arcade game created in the 1980s. It is often credited with 
 
 ## Gameplay Rules
 
-The player controls PacMan through a maze, eating dots. When all dots are eaten, PacMan is taken to the next stage. Between some stages, Four ghosts roam the maze, trying to catch Pac-Man. If an enemy touches Pac-Man, he loses a life. When all lives have been lost, the game ends.
+The player controls PacMan through a maze, eating dots. When all dots are eaten, PacMan is taken to the next stage. Four ghosts roam the maze, trying to catch Pac-Man. If an enemy touches Pac-Man, he loses a life. When all lives have been lost, the game ends.
 
 Near the corners of the maze are four larger, flashing dots known as Power Pellets that provide PacMan with the temporary ability to eat the ghosts. The ghosts turn deep blue, reverse direction and usually move more slowly. When a ghost is eaten, its eyes remain and return to the center box where it is regenerated in its normal color and once again chases PacMan
 
-## Points and Highscores
+## Points and Scoring
 
 Dots are worth 10 points each	
 Power Pellets are worth 50 points each
