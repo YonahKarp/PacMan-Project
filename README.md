@@ -2,7 +2,7 @@
 A semester group project recreating (and perhaps adding to) the classic PacMan Game
 
 ## What is PacMan?
-PacMan is a popular arcade game created in the 1980s. It is often credited with being a landmark in video game history and is among the most famous arcade games of all time. PacMan is often credited with being a landmark in video game history and has the highest brand awareness of any video game character among American consumers, recognized by 94 percent of them.
+PacMan is a popular arcade game created in the 1980s. It is often credited with being a landmark in video game history and is among the most famous arcade games of all time. PacMan has the highest brand awareness of any video game character among American consumers, recognized by 94 percent of them.
 
 ![alt text](https://upload.wikimedia.org/wikipedia/en/5/59/Pac-man.png "Logo Title Text 1")
 
