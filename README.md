@@ -29,7 +29,7 @@ Fruit and other bonus items appear during gameplay and can be eaten for addition
 	
   
 | Fruit         | Points        | Stage  |
-| ------------- |:-------------:| ------:|
+| ------------- |:-------------:| :-----:|
 | Cherry        | 100           |    1   |
 | StrawBerry    | 300           |    2   |
 | Orange        | 500           |  3 & 4 |
