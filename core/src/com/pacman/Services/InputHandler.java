@@ -11,23 +11,24 @@ public class InputHandler implements InputProcessor {
     private Pacman pacman;
 
     public InputHandler(Pacman pacman) {
-        // myBird now represents the gameWorld's bird.
         this.pacman = pacman;
     }
 
     @Override
     public boolean keyDown(int keycode) {
+
         switch (keycode){
-            case 37://left
+
+            case 21://left
                 pacman.move('l');
                 break;
-            case 38://up
+            case 19://up
                 pacman.move('u');
                 break;
-            case 39://right
+            case 22://right
                 pacman.move('r');
                 break;
-            case 40://down
+            case 20://down
                 pacman.move('d');
                 break;
             default:

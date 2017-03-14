@@ -26,8 +26,8 @@ public class GameRenderer {
 
         cam = new OrthographicCamera();
 
-        //Screen is 800x600 so it will scale draw size by 2
-        cam.setToOrtho(true, 300, 400);
+        //Screen is 600x800 so it will scale draw size by 4
+        cam.setToOrtho(true, 150, 200);
 
         batcher = new SpriteBatch();
         batcher.setProjectionMatrix(cam.combined);
@@ -54,10 +54,15 @@ public class GameRenderer {
 
         batcher.draw(
             currentFrame ,
-            200f,
-            200f,
-            13f,
-            13f
+            pacman.getX(), //x position
+            pacman.getY(), //y position
+            6.5f, // x origin
+            6.5f, // y origin
+            13f, //width
+            13f, //height
+            1f, //x scale
+            1f, // y scale
+            pacman.getRotation() //rotation
         );
 
         batcher.end();

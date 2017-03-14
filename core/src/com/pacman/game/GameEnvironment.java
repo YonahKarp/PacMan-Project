@@ -9,13 +9,12 @@ public class GameEnvironment {
     private Pacman pacman;
 
     public GameEnvironment(){
-        pacman = new Pacman(300,400,0);
+        pacman = new Pacman(100,100,0);
     }
 
 
     public void update(float delta) {
         pacman.update(delta);
-        //System.err.println("updater called");
     }
 
 

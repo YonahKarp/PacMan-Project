@@ -4,14 +4,14 @@ package com.pacman.gameObjects;
  * Created by YonahKarp on 3/6/17.
  */
 public class Player {
-    private float x;
-    private float y;
+    float x;
+    float y;
 
-    private double rotation;
+    float rotation;
 
     public Player(){}
 
-    public Player(float x, float y, double rotation){
+    public Player(float x, float y, float rotation){
         this.x = x;
         this.y = y;
         this.rotation = rotation;
@@ -25,7 +25,11 @@ public class Player {
         return y;
     }
 
-    public double getRotation() {
+    public float getRotation() {
         return rotation;
+    }
+
+    public boolean pathIsClear(){
+        return true;
     }
 }

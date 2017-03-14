@@ -16,6 +16,8 @@ public class AssetLoader {
     public static Texture texture;
 
     public static Animation<TextureRegion> pacmAnimation;
+    public static Animation<TextureRegion> dyingPacmAnimation;
+
     public static TextureRegion pacOpen, pacMid, pacClosed;
 
     public static void load() {
@@ -32,8 +34,35 @@ public class AssetLoader {
         pacClosed = new TextureRegion(texture, 35, 1, 13, 13);
 
         TextureRegion[] pacMan = { pacOpen, pacMid, pacClosed };
-        pacmAnimation = new Animation(0.15f, pacMan);
+        pacmAnimation = new Animation<TextureRegion>(0.1f, pacMan);
         pacmAnimation.setPlayMode(Animation.PlayMode.LOOP); //nom nom nom
+
+
+        /*
+         *  Dead Pacman
+         */
+
+        TextureRegion[] dyingPacman = {
+                new TextureRegion(texture, 51, 1, 13, 13),
+                new TextureRegion(texture, 67, 1, 13, 13),
+                new TextureRegion(texture, 83, 1, 13, 13),
+                new TextureRegion(texture, 99, 1, 13, 13),
+                new TextureRegion(texture, 115, 1, 13, 13),
+                new TextureRegion(texture, 131, 1, 13, 13),
+                new TextureRegion(texture, 147, 1, 13, 13),
+                new TextureRegion(texture, 163, 1, 13, 13),
+                new TextureRegion(texture, 179, 1, 13, 13),
+                new TextureRegion(texture, 196, 1, 13, 13),
+                new TextureRegion(texture, 212, 1, 13, 13),
+        };
+
+        dyingPacmAnimation = new Animation<TextureRegion>(0.1f, dyingPacman);
+        dyingPacmAnimation.setPlayMode(Animation.PlayMode.NORMAL); //nom nom nom
+
+
+
+
+
 
     }
 
