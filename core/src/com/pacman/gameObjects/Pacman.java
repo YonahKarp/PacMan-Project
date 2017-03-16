@@ -11,10 +11,20 @@ public class Pacman extends Player {
 
     public Pacman(float x, float y, float rotation){
         super(x,y,rotation);
+
     }
 
     public void update(float delta) {
         //continue along his way
+        //prevent pacman from going out of screen view
+        if(x<0)
+            x=0;
+        if(x>136)
+            x=136;
+        if(y<0)
+            y=1;
+        if(y>186)
+            y=186;
         switch (direction){
             case 'l':
                 if(pathIsClear())

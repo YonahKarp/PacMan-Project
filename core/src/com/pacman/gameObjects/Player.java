@@ -29,7 +29,5 @@ public class Player {
         return rotation;
     }
 
-    public boolean pathIsClear(){
-        return true;
-    }
+    public boolean pathIsClear(){return true;}
 }
