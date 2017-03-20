@@ -5,7 +5,7 @@ package com.pacman.gameObjects;
  */
 public class Pacman extends Player {
 
-    char direction = ' ';
+
 
     public Pacman(){}
 
@@ -16,15 +16,9 @@ public class Pacman extends Player {
 
     public void update(float delta) {
         //continue along his way
-        //prevent pacman from going out of screen view
-        if(x<0)
-            x=0;
-        if(x>136)
-            x=136;
-        if(y<0)
-            y=1;
-        if(y>186)
-            y=186;
+
+        //prevent pacman from going out of screen view (moved to pathIsClear method)
+
         switch (direction){
             case 'l':
                 if(pathIsClear())

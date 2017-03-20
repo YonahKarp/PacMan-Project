@@ -9,6 +9,8 @@ public class Player {
 
     float rotation;
 
+    char direction = ' ';
+
     public Player(){}
 
     public Player(float x, float y, float rotation){
@@ -29,5 +31,31 @@ public class Player {
         return rotation;
     }
 
-    public boolean pathIsClear(){return true;}
+    public boolean pathIsClear(){
+
+        //board bounds
+        if(x<0) {
+            x= 0;
+            direction = ' ';
+            return false;
+        }
+        if(x > 136) {
+            x = 136;
+            direction = ' ';
+            return false;
+        }
+
+        if(y<0) {
+            y = 0;
+            direction = ' ';
+            return false;
+        }
+        if(y>186) {
+            y = 186;
+            direction = ' ';
+            return false;
+        }
+
+
+        return true;}
 }
