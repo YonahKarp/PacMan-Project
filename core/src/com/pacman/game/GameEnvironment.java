@@ -1,5 +1,6 @@
 package com.pacman.game;
 
+import com.pacman.gameObjects.Map;
 import com.pacman.gameObjects.Pacman;
 
 /**
@@ -7,9 +8,11 @@ import com.pacman.gameObjects.Pacman;
  */
 public class GameEnvironment {
     private Pacman pacman;
+    private Map map;
 
     public GameEnvironment(){
         pacman = new Pacman(100,100,0);
+        map = new Map();
     }
 
 
@@ -20,5 +23,9 @@ public class GameEnvironment {
 
     public Pacman getPacman() {
         return pacman;
+    }
+
+    public Map getMap(){
+        return map;
     }
 }

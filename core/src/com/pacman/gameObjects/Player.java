@@ -34,24 +34,24 @@ public class Player {
     public boolean pathIsClear(){
 
         //board bounds
-        if(x<0) {
-            x= 0;
-            direction = ' ';
+        if(x < -7) {
+            x= 150;
+            //direction = ' '; tunneling
             return false;
         }
-        if(x > 136) {
-            x = 136;
-            direction = ' ';
+        if(x > 150) {
+            x = 0;
+            //direction = ' ';
             return false;
         }
 
-        if(y<0) {
-            y = 0;
+        if(y<23) {
+            y = 23;
             direction = ' ';
             return false;
         }
-        if(y>186) {
-            y = 186;
+        if(y>176) {
+            y = 176;
             direction = ' ';
             return false;
         }

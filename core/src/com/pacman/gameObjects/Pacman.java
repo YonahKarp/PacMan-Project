@@ -19,22 +19,24 @@ public class Pacman extends Player {
 
         //prevent pacman from going out of screen view (moved to pathIsClear method)
 
+        int speed = 32;
+
         switch (direction){
             case 'l':
                 if(pathIsClear())
-                    x -= 40*delta;
+                    x -= speed*delta; // distance = speed * time
                 break;
             case 'u':
                 if(pathIsClear())
-                    y -= 40*delta;
+                    y -= speed*delta;
                 break;
             case 'r':
                 if(pathIsClear())
-                    x += 40*delta;
+                    x += speed*delta;
                 break;
             case 'd':
                 if(pathIsClear())
-                    y += 40*delta;
+                    y += speed*delta;
                 break;
             default:
                 break;

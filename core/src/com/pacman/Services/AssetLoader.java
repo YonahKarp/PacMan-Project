@@ -61,10 +61,15 @@ public class AssetLoader {
         /*
          *  Map
          */
+        mazeSheet = new Texture(Gdx.files.internal("mazeSheet2.png"));
+
+
         final int FRAME_COLS = 13, FRAME_ROWS = 3;
         mazeTiles = TextureRegion.split(mazeSheet,
-                mazeSheet.getWidth() / FRAME_COLS,
-                mazeSheet.getHeight() / FRAME_ROWS);
+                8,
+                8);
+
+        System.out.println(mazeTiles.length);
 
 
 
@@ -75,6 +80,7 @@ public class AssetLoader {
     public static void dispose() {
         // Dispose of texture when finished. File is 'large'
         pacmanSheet.dispose();
+        mazeSheet.dispose();
     }
 
 }
