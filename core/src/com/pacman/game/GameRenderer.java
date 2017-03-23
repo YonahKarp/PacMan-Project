@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pacman.Services.AssetLoader;
 import com.pacman.gameObjects.Map;
 import com.pacman.gameObjects.Pacman;
+import com.pacman.gameObjects.RedGhost;
 
 /**
  * This class does our rendering
@@ -43,7 +44,7 @@ public class GameRenderer {
 
         Pacman pacman = environment.getPacman();
         Map map = environment.getMap();
-
+        RedGhost redGhost = environment.getRedGhost();
         // Fill screen with black, prevents flickering.
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -83,7 +84,7 @@ public class GameRenderer {
                 pacman.getRotation() //rotation
         );
 
-
+        batcher.draw(AssetLoader.redGhost, redGhost.getX(),redGhost.getY());
 
         batcher.end();
 

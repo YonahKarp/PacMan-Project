@@ -13,19 +13,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture pacmanSheet, mazeSheet;
+    public static Texture pacmanSheet, mazeSheet, ghostSheet;
 
     public static Animation<TextureRegion> pacmAnimation;
     public static Animation<TextureRegion> dyingPacmAnimation;
 
-    public static TextureRegion pacOpen, pacMid, pacClosed;
+    public static TextureRegion pacOpen, pacMid, pacClosed, redGhost;
     public static TextureRegion[][] mazeTiles;
 
     public static void load() {
 
         pacmanSheet = new Texture(Gdx.files.internal("pacmanSheet.png"));
         pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
-
         pacOpen = new TextureRegion(pacmanSheet, 3, 1, 13, 13); //location on sprite sheet
         //pacOpen.flip(false, true); //may need to be flipped in Y down paradigm
 
@@ -37,6 +36,10 @@ public class AssetLoader {
         pacmAnimation = new Animation<TextureRegion>(0.1f, pacMan);
         pacmAnimation.setPlayMode(Animation.PlayMode.LOOP); //nom nom nom
 
+        ghostSheet = new Texture(Gdx.files.internal("ghostSheet.png"));
+        // pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
+        redGhost = new TextureRegion(ghostSheet,  3, 1, 15, 16);
+        redGhost.flip(false,true);
 
         /*
          *  Dead Pacman
