@@ -23,7 +23,7 @@ public class PacmanGameScreen implements Screen {
         environment = new GameEnvironment();
         renderer = new GameRenderer(environment);
 
-        Gdx.input.setInputProcessor(new InputHandler(environment.getPacman()));
+        Gdx.input.setInputProcessor(new InputHandler(this.environment.getPacman(), this.environment.getMap()));
 
     }
 

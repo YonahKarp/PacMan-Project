@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pacman.Services.AssetLoader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by YonahKarp on 3/13/17.
@@ -13,6 +14,23 @@ public class Map {
 
     public Map(){
         textureMap = createTextureMap(mapString);
+    }
+
+    public char getTileFromPosition(float x, float y)
+    {
+        char[] mapStringArray = mapString.toCharArray();
+
+        //Hard coding tile size for now but this should probably be dynamically declared
+        int tileSize = 8;
+        int tilePosX = (int)(x / tileSize);
+        int tilePosY = (int)(y / tileSize);
+
+        return mapStringArray[tilePosX * tilePosY];
+    }
+
+    public boolean tileIsValidMovementTile(char t)
+    {
+        return t == ' ' || t == '.' || t == 'o' || t == 'R';
     }
 
     //                  123456789     15   20   25

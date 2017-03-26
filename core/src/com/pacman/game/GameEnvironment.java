@@ -13,9 +13,9 @@ public class GameEnvironment {
     private RedGhost redGhost;
 
     public GameEnvironment(){
-        pacman = new Pacman(100,100,0);
         redGhost = new RedGhost(70,90);
         map = new Map();
+        pacman = new Pacman(100,100, 32,0,map);
     }
 
 
