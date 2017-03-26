@@ -25,19 +25,19 @@ public class Pacman extends Player {
 
         switch (direction){
             case 'l':
-                if(pathIsClear())
+                if(pathIsClear(direction))
                     x -= speed*delta; // distance = speed * time
                 break;
             case 'u':
-                if(pathIsClear())
+                if(pathIsClear(direction))
                     y -= speed*delta;
                 break;
             case 'r':
-                if(pathIsClear())
+                if(pathIsClear(direction))
                     x += speed*delta;
                 break;
             case 'd':
-                if(pathIsClear())
+                if(pathIsClear(direction))
                     y += speed*delta;
                 break;
             default:
@@ -50,20 +50,28 @@ public class Pacman extends Player {
         System.err.println("pac     "+getRect().getX()+" "+getRect().getY());
         switch (direction){
             case 'l':
-                this.direction = direction;
-                rotation = 180;
+                if (pathIsClear('l')) { //prevent direction change if blocked (like classic game)
+                    this.direction = direction;
+                    rotation = 180;
+                }
                 break;
             case 'u':
-                this.direction = direction;
-                rotation = 270;
+                if (pathIsClear('u')) {
+                    this.direction = direction;
+                    rotation = 270;
+                }
                 break;
             case 'r':
-                this.direction = direction;
-                rotation = 0;
+                if (pathIsClear('r')) {
+                    this.direction = direction;
+                    rotation = 0;
+                }
                 break;
             case 'd':
-                this.direction = direction;
-                rotation = 90;
+                if (pathIsClear('d')) {
+                    this.direction = direction;
+                    rotation = 90;
+                }
                 break;
         }
     }

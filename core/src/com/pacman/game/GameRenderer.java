@@ -69,8 +69,8 @@ public class GameRenderer {
         for (int i = 0; i < MAP_COLS * MAP_ROWS; i++) {
             batcher.draw(
                     map.textureMap[i/28][i%28],
-                    (i % 28)* boxsize,
-                    (i / 28) * boxsize + vertOffset,
+                    (i % 28)* boxsize, //x position
+                    (i / 28) * boxsize + vertOffset, //y position
                     boxsize,
                     boxsize
             );
@@ -88,7 +88,18 @@ public class GameRenderer {
                     pacman.getRotation() //rotation
             );
 
-        batcher.draw(AssetLoader.redGhost, redGhost.getX(),redGhost.getY());
+        batcher.draw(
+                AssetLoader.redGhost,
+                redGhost.getX(),
+                redGhost.getY(),
+                3.5f,
+                3.5f,
+                7f,
+                7f,
+                1f,
+                1f,
+                0
+        );
 
         //check if pacman collides with ghost
         if(Intersector.overlaps(pacman.getRect(), redGhost.getRect()))

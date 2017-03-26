@@ -39,7 +39,7 @@ public class AssetLoader {
         ghostSheet = new Texture(Gdx.files.internal("ghostSheet.png"));
         // pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
 
-        redGhost = new TextureRegion(ghostSheet,  3, 1, 15, 16);
+        redGhost = new TextureRegion(ghostSheet,  2, 1, 14, 14);
         redGhost.flip(false,true);
 
         /*
@@ -65,13 +65,11 @@ public class AssetLoader {
         /*
          *  Map
          */
-        mazeSheet = new Texture(Gdx.files.internal("mazeSheet2.png"));
+        mazeSheet = new Texture(Gdx.files.internal("mazeSheet3.png"));
 
 
         final int FRAME_COLS = 13, FRAME_ROWS = 3;
-        mazeTiles = TextureRegion.split(mazeSheet,
-                8,
-                8);
+        mazeTiles = TextureRegion.split(mazeSheet, 8, 8);
 
         System.out.println(mazeTiles.length);
 
