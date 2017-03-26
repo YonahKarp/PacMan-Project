@@ -1,5 +1,7 @@
 package com.pacman.gameObjects;
 
+import com.badlogic.gdx.math.Rectangle;
+
 /**
  * Created by YonahKarp on 3/6/17.
  */
@@ -45,7 +47,7 @@ public class Pacman extends Player {
 
     public void move(char direction){
         System.out.println("move");
-
+        System.err.println("pac     "+getRect().getX()+" "+getRect().getY());
         switch (direction){
             case 'l':
                 this.direction = direction;
@@ -65,4 +67,5 @@ public class Pacman extends Player {
                 break;
         }
     }
+
 }

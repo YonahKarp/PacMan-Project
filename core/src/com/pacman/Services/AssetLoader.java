@@ -34,10 +34,11 @@ public class AssetLoader {
 
         TextureRegion[] pacMan = { pacOpen, pacMid, pacClosed };
         pacmAnimation = new Animation<TextureRegion>(0.1f, pacMan);
-        pacmAnimation.setPlayMode(Animation.PlayMode.LOOP); //nom nom nom
+        pacmAnimation.setPlayMode(Animation.PlayMode.NORMAL); //nom nom nom
 
         ghostSheet = new Texture(Gdx.files.internal("ghostSheet.png"));
         // pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
+
         redGhost = new TextureRegion(ghostSheet,  3, 1, 15, 16);
         redGhost.flip(false,true);
 
@@ -73,9 +74,6 @@ public class AssetLoader {
                 8);
 
         System.out.println(mazeTiles.length);
-
-
-
 
 
     }

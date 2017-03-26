@@ -1,14 +1,21 @@
 package com.pacman.game;
-
+import com.badlogic.gdx.graphics.TextureArray;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.pacman.Services.AssetLoader;
 import com.pacman.gameObjects.Map;
 import com.pacman.gameObjects.Pacman;
 import com.pacman.gameObjects.RedGhost;
+import com.pacman.screens.PacmanGameScreen;
+
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+import java.sql.Time;
 
 /**
  * This class does our rendering
@@ -19,7 +26,6 @@ public class GameRenderer {
     private OrthographicCamera cam;
 
     private SpriteBatch batcher;
-
 
 
 
@@ -53,9 +59,8 @@ public class GameRenderer {
         batcher.disableBlending();
 
         TextureRegion currentFrame = AssetLoader.pacmAnimation.getKeyFrame(runTime, true);
-
-
-
+        TextureRegion dyingPac = AssetLoader.dyingPacmAnimation.getKeyFrame(runTime, false);
+        Vector2 prevPacman =  new Vector2(pacman.getX(), pacman.getY());  //save pacmans previous postion if needed
 
         final int MAP_COLS = 28, MAP_ROWS = 31;
         final float boxsize = 5.35f;
@@ -70,23 +75,31 @@ public class GameRenderer {
                     boxsize
             );
         }
-
-        batcher.draw(
-                currentFrame ,
-                pacman.getX(), //x position
-                pacman.getY(), //y position
-                3.5f, // x origin
-                3.5f, // y origin
-                7f, //width
-                7f, //height
-                1f, //x scale
-                1f, // y scale
-                pacman.getRotation() //rotation
-        );
+            batcher.draw(
+                    currentFrame,
+                    pacman.getX(), //x position
+                    pacman.getY(), //y position
+                    3.5f, // x origin
+                    3.5f, // y origin
+                    7f, //width
+                    7f, //height
+                    1f, //x scale
+                    1f, // y scale
+                    pacman.getRotation() //rotation
+            );
 
         batcher.draw(AssetLoader.redGhost, redGhost.getX(),redGhost.getY());
 
+        //check if pacman collides with ghost
+        if(Intersector.overlaps(pacman.getRect(), redGhost.getRect()))
+        {
+            redGhost.resetGhost();  //put ghost back in starting position
+            //pacman.dyingPacman(prevPacman.x,prevPacman.y);  //not used for now
+            System.err.println("dead");
+            batcher.draw(dyingPac,pacman.getX(),pacman.getY());
+            pacman.resetPacman();
+            pacman.setDead(true);
+        }
         batcher.end();
-
     }
 }
