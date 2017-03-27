@@ -112,10 +112,12 @@ public class GameRenderer {
             if (Intersector.overlaps(pacman.getRect(), ghost.getRect())) {
                 ghost.resetGhost();  //put ghost back in starting position
                 //pacman.dyingPacman(prevPacman.x,prevPacman.y);  //not used for now
-                System.err.println("dead");
-                batcher.draw(dyingPac, pacman.getX(), pacman.getY());
-                pacman.resetPacman();
-                pacman.setDead(true);
+                if(!pacman.isInvincible()) {
+                    System.err.println("dead");
+                    batcher.draw(dyingPac, pacman.getX(), pacman.getY());
+                    pacman.resetPacman();
+                    pacman.setDead(true);
+                }
             }
         }
         batcher.end();

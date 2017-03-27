@@ -70,8 +70,10 @@ public class Player {
 
         switch (Map.currMap.charAt(mapX+mapY)) {
             case 'o':
-                if(this instanceof Pacman)
-                    ((Pacman)(this)).setInvincibleTrue();
+                if(this instanceof Pacman) {
+                    ((Pacman) (this)).setInvincibleTrue();
+                    AssetLoader.powerPacman.play();
+                }
             case '.':
                 if(this instanceof Pacman) {
                     Map.currMap.setCharAt(mapX + mapY, ' ');

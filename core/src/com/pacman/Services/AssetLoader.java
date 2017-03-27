@@ -23,7 +23,7 @@ public class AssetLoader {
     public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, edibleGhostImages, powerPelletImages;
     public static TextureRegion[][] mazeTiles;
 
-    public static Sound introMusic, nomnom, death;
+    public static Sound introMusic, nomnom, death, powerPacman;
 
     public static void load() {
 
@@ -126,6 +126,8 @@ public class AssetLoader {
         introMusic = Gdx.audio.newSound(Gdx.files.internal("audio/introMusic.ogg"));
         nomnom = Gdx.audio.newSound(Gdx.files.internal("audio/nomnom.ogg"));
         death = Gdx.audio.newSound(Gdx.files.internal("audio/death.ogg"));
+        powerPacman = Gdx.audio.newSound(Gdx.files.internal("audio/ghostTurnBlue.ogg"));
+
 
 
 
