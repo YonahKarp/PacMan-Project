@@ -12,6 +12,7 @@ import com.pacman.Services.AssetLoader;
 import com.pacman.gameObjects.Ghost;
 import com.pacman.gameObjects.Map;
 import com.pacman.gameObjects.Pacman;
+import com.pacman.gameObjects.PowerPellet;
 import com.pacman.screens.PacmanGameScreen;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
@@ -64,16 +65,26 @@ public class GameRenderer {
 
         final int MAP_COLS = 28, MAP_ROWS = 31;
         final float boxsize = 5.35f;
-        final float vertOffset = 21.2f;
+        final float vertOffset = 21.4f;
 
         for (int i = 0; i < MAP_COLS * MAP_ROWS; i++) {
-            batcher.draw(
-                    Map.textureMap[i / 28][i % 28],
-                    (i % 28) * boxsize, //x position
-                    (i / 28) * boxsize + vertOffset, //y position
-                    boxsize,
-                    boxsize
-            );
+           if(!(Map.textureMap[i / 28][i % 28] instanceof PowerPellet))
+                batcher.draw(
+                        Map.textureMap[i / 28][i % 28],
+                        (i % 28) * boxsize, //x position
+                        (i / 28) * boxsize + vertOffset, //y position
+                        boxsize,
+                        boxsize
+                );
+            else {
+               batcher.draw(
+                       ((PowerPellet)(Map.textureMap[i / 28][i % 28])).getAnimation().getKeyFrame(runTime, true),
+                       (i % 28) * boxsize, //x position
+                       (i / 28) * boxsize + vertOffset, //y position
+                       boxsize,
+                       boxsize
+               );
+           }
         }
         batcher.draw(
                 currentFrame,
@@ -91,7 +102,7 @@ public class GameRenderer {
         for (Ghost ghost : ghosts) {
 
             batcher.draw(
-                    ghost.getImage(),
+                    ghost.getAnimation().getKeyFrame(runTime, true),
                     ghost.getX(),
                     ghost.getY(),
                     3.5f,

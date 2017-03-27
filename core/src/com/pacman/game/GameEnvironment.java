@@ -19,7 +19,7 @@ public class GameEnvironment {
 
     public GameEnvironment(){
         map = new Map();
-        pacman = new Pacman(75,142,0); //we pass the map for collision detection
+        pacman = new Pacman(72,144f,0); //we pass the map for collision detection
         ghosts = new Ghost[]{
                 new Ghost(70, 80, AssetLoader.redGhost),
                 new Ghost(70, 90, AssetLoader.blueGhost),

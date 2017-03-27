@@ -1,5 +1,6 @@
 package com.pacman.gameObjects;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,20 +12,20 @@ import java.util.Random;
  */
 public class Ghost extends Player {
     private Random rand = new Random();
-    private int currMove = 3; //start by movin up
+    private int currMove = 3; //start by moving up
 
     private Rectangle redG;  //encapsulate ghost in rectangle for collision detection
     //float x,y;
 
-    private int speed = 30;
+    private int speed = 38;
 
-    TextureRegion image; //todo split ghosts into different classes with different AIs
+    private Animation<TextureRegion> animation; //todo split ghosts into different classes with different AIs
 
-    public Ghost(float x, float y, TextureRegion image)
+    public Ghost(float x, float y, Animation<TextureRegion> animation)
     {
         super(x,y,0);
 
-        this.image = image;
+        this.animation = animation;
         redG = new Rectangle(x,y,7,7); //to encapsulate ghost for collision detection
 
     }
@@ -83,7 +84,7 @@ public class Ghost extends Player {
         y=90;
     }
 
-    public TextureRegion getImage() {
-        return image;
+    public Animation<TextureRegion> getAnimation() {
+        return animation;
     }
 }

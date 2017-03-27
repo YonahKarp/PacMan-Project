@@ -1,5 +1,6 @@
 package com.pacman.gameObjects;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -9,7 +10,7 @@ public class Pacman extends Player
 {
 
     private boolean isDead = false;
-    private int speed = 32;
+    private int speed = 40;
 
 
     public Pacman(){}
@@ -23,8 +24,6 @@ public class Pacman extends Player
         //continue along his way
 
         //prevent pacman from going out of screen view (moved to pathIsClear method)
-
-
 
         switch (direction){
             case 'l':
@@ -55,27 +54,29 @@ public class Pacman extends Player
             case 'l':
                 if (pathIsClear('l')) { //prevent direction change if blocked (like classic game)
                     this.direction = direction;
-                    y = 5.315f*(Math.round(y/5.315)); //todo fix arbitraries
+
+                    y = 5.35f*(Math.round(y/5.35)); //todo fix arbitraries
                     rotation = 180;
                 }
                 break;
             case 'u':
                 if (pathIsClear('u')) {
                     this.direction = direction;
-                    x = 5.3f*(Math.round(x/5.3)); //adjust pacman so he's in middle (should find out a way to get rid of arbitrary number )
+                    x = 5.35f*(Math.round(x/5.35)); //adjust pacman so he's in middle (should find out a way to get rid of arbitrary number )
                     rotation = 270;
                 }
                 break;
             case 'r':
                 if (pathIsClear('r')) {
                     this.direction = direction;
+                    y = 5.35f*(Math.round(y/5.35)); //todo fix arbitraries
                     rotation = 0;
                 }
                 break;
             case 'd':
                 if (pathIsClear('d')) {
                     this.direction = direction;
-                    x = 5.3f*(Math.round(x/5.3));
+                    x = 5.35f*(Math.round(x/5.35));
                     rotation = 90;
                 }
                 break;

@@ -56,21 +56,18 @@ public class Player {
         }
 
         float boxSize = 5.35f;
-        float vertOffset =21.2f;
+        float vertOffset =21.4f;
         int charRows = 28;
 
-        double adjustX = (newDirection == 'l')? -0.5 :
-                (newDirection == 'r')? 0.7 : 0 ;
+        double adjustX = (newDirection == 'l')? -0.65 :
+                (newDirection == 'r')? 0.65 : 0 ;
 
-        double adjustY = (newDirection == 'u')? -0.5 :
-                (newDirection == 'd')? 0.7 : 0 ;
+        double adjustY = (newDirection == 'u')? -0.65 :
+                (newDirection == 'd')? 0.65 : 0 ;
 
 
         int mapX = (int)Math.round(x/boxSize + adjustX);
         int mapY = (int)(charRows*Math.round((y - vertOffset)/boxSize + adjustY));
-
-
-        //System.out.println(Map.mapString.charAt(mapX+mapY));
 
 
         switch (Map.currMap.charAt(mapX+mapY)) {
@@ -81,6 +78,7 @@ public class Player {
                     Map.currMap.setCharAt(mapX + mapY, ' ');
                     Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
                 }
+                //todo add invinsability
             case ' ':
                 return true;
             default:

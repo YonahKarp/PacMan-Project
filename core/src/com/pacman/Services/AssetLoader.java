@@ -15,10 +15,11 @@ public class AssetLoader {
 
     public static Texture pacmanSheet, mazeSheet, ghostSheet;
 
-    public static Animation<TextureRegion> pacmAnimation;
-    public static Animation<TextureRegion> dyingPacmAnimation;
+    public static Animation<TextureRegion> pacmAnimation, getDyingPacmAnimation, dyingPacmAnimation, powerPellet;
+    public static Animation<TextureRegion> redGhost, blueGhost, pinkGhost, orangeGhost ;
 
-    public static TextureRegion pacOpen, pacMid, pacClosed, redGhost, blueGhost, pinkGhost, orangeGhost;
+    public static TextureRegion pacOpen, pacMid, pacClosed;
+    public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, powerPelletImages;
     public static TextureRegion[][] mazeTiles;
 
     public static void load() {
@@ -36,20 +37,41 @@ public class AssetLoader {
         pacmAnimation = new Animation<TextureRegion>(0.1f, pacMan);
         pacmAnimation.setPlayMode(Animation.PlayMode.NORMAL); //nom nom nom
 
+
+
         ghostSheet = new Texture(Gdx.files.internal("ghostSheet.png"));
         // pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
 
-        redGhost = new TextureRegion(ghostSheet,  2, 1, 14, 14);
-        redGhost.flip(false,true);
+        redGhostImages = new TextureRegion[2];
+        redGhostImages[0] = new TextureRegion(ghostSheet,  2, 1, 14, 14);
+        redGhostImages[0].flip(false,true);
+        redGhostImages[1] = new TextureRegion(ghostSheet,  18, 1, 14, 14);
+        redGhostImages[1].flip(false,true);
+        redGhost = new Animation<>(0.1f, redGhostImages);
 
-        pinkGhost = new TextureRegion(ghostSheet,  2, 17, 14, 14);
-        pinkGhost.flip(false,true);
+        pinkGhostImages = new TextureRegion[2];
+        pinkGhostImages[0] = new TextureRegion(ghostSheet,  2, 17, 14, 14);
+        pinkGhostImages[0].flip(false,true);
+        pinkGhostImages[1] = new TextureRegion(ghostSheet,  18, 17, 14, 14);
+        pinkGhostImages[1].flip(false,true);
+        pinkGhost = new Animation<>(0.1f, pinkGhostImages);
 
-        blueGhost = new TextureRegion(ghostSheet,  2, 33, 14, 14);
-        blueGhost.flip(false,true);
+        blueGhostImages = new TextureRegion[2];
+        blueGhostImages[0] = new TextureRegion(ghostSheet,  2, 33, 14, 14);
+        blueGhostImages[0].flip(false,true);
+        blueGhostImages[1] = new TextureRegion(ghostSheet,  18, 33, 14, 14);
+        blueGhostImages[1].flip(false,true);
+        blueGhost = new Animation<>(0.1f, blueGhostImages);
 
-        orangeGhost = new TextureRegion(ghostSheet,  2, 49, 14, 14);
-        orangeGhost.flip(false,true);
+        orangeGhostImages = new TextureRegion[2];
+        orangeGhostImages[0] = new TextureRegion(ghostSheet,  2, 49, 14, 14);
+        orangeGhostImages[0].flip(false,true);
+        orangeGhostImages[1] = new TextureRegion(ghostSheet,  18, 49, 14, 14);
+        orangeGhostImages[1].flip(false,true);
+        orangeGhost = new Animation<>(0.1f, orangeGhostImages);
+
+
+
 
 
         /*
@@ -81,8 +103,12 @@ public class AssetLoader {
         final int FRAME_COLS = 13, FRAME_ROWS = 3;
         mazeTiles = TextureRegion.split(mazeSheet, 8, 8);
 
-        System.out.println(mazeTiles.length);
+        powerPelletImages = new TextureRegion[]{
+                new TextureRegion(mazeTiles[2][11]),
+                new TextureRegion(mazeTiles[2][12])
+        };
 
+        powerPellet = new Animation<>(0.15f, powerPelletImages);
 
     }
 

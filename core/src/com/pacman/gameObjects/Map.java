@@ -195,7 +195,7 @@ public class Map {
                     break;
 
                 case '┱':
-                    map[i/28][i%28] = AssetLoader.mazeTiles[2][6]; //todo flip this
+                    map[i/28][i%28] = AssetLoader.mazeTiles[2][6];
 
                     break;
                 case '┲':
@@ -219,7 +219,7 @@ public class Map {
                     map[i/28][i%28] = AssetLoader.mazeTiles[2][10];
                     break;
                 case 'o':
-                    map[i/28][i%28] = AssetLoader.mazeTiles[2][11];
+                    map[i/28][i%28] = new PowerPellet(); //hacky, but it works
                     break;
 
                 case ' ':
