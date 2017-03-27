@@ -10,6 +10,8 @@ public class Pacman extends Player
 {
 
     private boolean isDead = false;
+    private boolean _isInvincible = false;
+
     private int speed = 40;
 
 
@@ -85,7 +87,7 @@ public class Pacman extends Player
 
     public void resetPacman() {
         x=75;
-        y=142;
+        y=144;
         direction = ' ';
     }
 
@@ -102,4 +104,21 @@ public class Pacman extends Player
         isDead=true;
     }
 
+    public void setInvincibleTrue() {
+        _isInvincible = true;
+
+        //after 10000 seconds we set invincible false
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        _isInvincible = false;
+                        this.cancel();
+                    }
+                }, 10000);
+    }
+
+    public boolean isInvincible() {
+        return _isInvincible;
+    }
 }

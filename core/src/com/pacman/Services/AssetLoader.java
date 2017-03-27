@@ -17,10 +17,10 @@ public class AssetLoader {
     public static Texture pacmanSheet, mazeSheet, ghostSheet;
 
     public static Animation<TextureRegion> pacmAnimation, getDyingPacmAnimation, dyingPacmAnimation, powerPellet;
-    public static Animation<TextureRegion> redGhost, blueGhost, pinkGhost, orangeGhost ;
+    public static Animation<TextureRegion> redGhost, blueGhost, pinkGhost, orangeGhost, edibleGhost ;
 
     public static TextureRegion pacOpen, pacMid, pacClosed;
-    public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, powerPelletImages;
+    public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, edibleGhostImages, powerPelletImages;
     public static TextureRegion[][] mazeTiles;
 
     public static Sound introMusic, nomnom, death;
@@ -76,6 +76,13 @@ public class AssetLoader {
         orangeGhostImages[1] = new TextureRegion(ghostSheet,  18, 49, 14, 14);
         orangeGhostImages[1].flip(false,true);
         orangeGhost = new Animation<TextureRegion>(0.1f, orangeGhostImages);
+
+        edibleGhostImages = new TextureRegion[2];
+        edibleGhostImages[0] = new TextureRegion(ghostSheet,  130, 1, 14, 14);
+        edibleGhostImages[0].flip(false,true);
+        edibleGhostImages[1] = new TextureRegion(ghostSheet,  146, 1, 14, 14);
+        edibleGhostImages[1].flip(false,true);
+        edibleGhost = new Animation<TextureRegion>(0.1f, edibleGhostImages);
 
         /*
          *  Dead Pacman

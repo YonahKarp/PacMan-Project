@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Rectangle;
+import com.pacman.Services.AssetLoader;
 
 import java.util.Random;
 
@@ -20,6 +21,7 @@ public class Ghost extends Player {
     private int speed = 38;
 
     private Animation<TextureRegion> animation; //todo split ghosts into different classes with different AIs
+    private Animation<TextureRegion> edibleAnimation = AssetLoader.edibleGhost;
 
     public Ghost(float x, float y, Animation<TextureRegion> animation)
     {
@@ -86,5 +88,9 @@ public class Ghost extends Player {
 
     public Animation<TextureRegion> getAnimation() {
         return animation;
+    }
+
+    public Animation<TextureRegion> getEdibleAnimation() {
+        return edibleAnimation;
     }
 }

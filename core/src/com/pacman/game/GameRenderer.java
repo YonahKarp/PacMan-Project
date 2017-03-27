@@ -68,24 +68,17 @@ public class GameRenderer {
         final float vertOffset = 21.4f;
 
         for (int i = 0; i < MAP_COLS * MAP_ROWS; i++) {
-           if(!(Map.textureMap[i / 28][i % 28] instanceof PowerPellet))
-                batcher.draw(
-                        Map.textureMap[i / 28][i % 28],
-                        (i % 28) * boxsize, //x position
-                        (i / 28) * boxsize + vertOffset, //y position
-                        boxsize,
-                        boxsize
-                );
-            else {
-               batcher.draw(
-                       ((PowerPellet)(Map.textureMap[i / 28][i % 28])).getAnimation().getKeyFrame(runTime, true),
-                       (i % 28) * boxsize, //x position
-                       (i / 28) * boxsize + vertOffset, //y position
-                       boxsize,
-                       boxsize
-               );
-           }
+
+            batcher.draw(
+                    (!(Map.textureMap[i / 28][i % 28] instanceof PowerPellet))?
+                            Map.textureMap[i / 28][i % 28] : ((PowerPellet)(Map.textureMap[i / 28][i % 28])).getAnimation().getKeyFrame(runTime, true),
+                    (i % 28) * boxsize, //x position
+                    (i / 28) * boxsize + vertOffset, //y position
+                    boxsize,
+                    boxsize
+            );
         }
+
         batcher.draw(
                 currentFrame,
                 pacman.getX(), //x position
@@ -102,7 +95,7 @@ public class GameRenderer {
         for (Ghost ghost : ghosts) {
 
             batcher.draw(
-                    ghost.getAnimation().getKeyFrame(runTime, true),
+                    (!pacman.isInvincible())? ghost.getAnimation().getKeyFrame(runTime, true) : ghost.getEdibleAnimation().getKeyFrame(runTime, true),
                     ghost.getX(),
                     ghost.getY(),
                     3.5f,

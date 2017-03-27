@@ -3,9 +3,9 @@ package com.pacman.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.pacman.Services.AssetLoader;
+import com.pacman.Services.SoundService;
 import com.pacman.game.GameRenderer;
 import com.pacman.game.GameEnvironment;
 import com.pacman.Services.InputHandler;
@@ -26,6 +26,14 @@ public class PacmanGameScreen implements Screen {
         environment = new GameEnvironment();
         renderer = new GameRenderer(environment);
 
+        //todo play introMusic while paused with screen behind
+        SoundService.setIntroIsPlaying();
+        while(SoundService.getIntroIsPlaying()){
+            try {Thread.sleep(200);}
+            catch (InterruptedException e) {}
+        }
+
+
         Gdx.input.setInputProcessor(new InputHandler(this.environment.getPacman(), this.environment.getMap()));
 
 
@@ -39,9 +47,6 @@ public class PacmanGameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        if(runtime == 0) {
-            AssetLoader.introMusic.play(1f);
-        }
         /**
          * Every frame: we update, then render
          */

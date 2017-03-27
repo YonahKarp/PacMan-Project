@@ -41,16 +41,15 @@ public class Player {
     }
 
     public boolean pathIsClear(char newDirection) {
-        //board bounds
+
+     //tunneling
         if(x < 0) {
             x= 142;
             return true;
-            //direction = ' '; tunneling
         }
         if(x > 142) {
             x = 0;
             return true;
-            //direction = ' ';
         }
 
         float boxSize = 5.35f;
@@ -70,13 +69,14 @@ public class Player {
 
 
         switch (Map.currMap.charAt(mapX+mapY)) {
-            case '.':
             case 'o':
+                if(this instanceof Pacman)
+                    ((Pacman)(this)).setInvincibleTrue();
+            case '.':
                 if(this instanceof Pacman) {
                     Map.currMap.setCharAt(mapX + mapY, ' ');
-                    if(!SoundService.getNomnomIsPlaying()){
+                    if(!SoundService.getNomnomIsPlaying())
                         SoundService.setNomnomIsPlaying();
-                    }
 
                     Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
                 }
