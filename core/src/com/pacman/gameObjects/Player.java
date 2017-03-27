@@ -13,9 +13,8 @@ public class Player {
     float y;
 
     float rotation;
-    boolean isDead;
     char direction = ' ';
-    Rectangle playerRect;  //to encapsulate pacman for collision detection
+    private Rectangle playerRect;  //to encapsulate pacman for collision detection
 
 
     public Player(){}
@@ -25,9 +24,7 @@ public class Player {
         this.y = y;
         this.rotation = rotation;
 
-        playerRect= new Rectangle(x,y,10,10);
-        isDead= false;
-
+        playerRect= new Rectangle(x,y,7,7);
     }
 
     public float getX() {
@@ -47,38 +44,27 @@ public class Player {
 
 
         //board bounds
-        if(x < -7) {
-            x= 150;
+        if(x < 0) {
+            x= 142;
+            return true;
             //direction = ' '; tunneling
         }
-        if(x > 150) {
+        if(x > 142) {
             x = 0;
+            return true;
             //direction = ' ';
         }
 
         float boxSize = 5.35f;
-        int vertOffset =20;
+        float vertOffset =21.2f;
         int charRows = 28;
 
-        double adjustX = 0;
-        double adjustY = 0;
+        double adjustX = (newDirection == 'l')? -0.5 :
+                (newDirection == 'r')? 0.7 : 0 ;
 
-        switch (newDirection){
-            case 'l':
-                adjustX = -0.5;
-                break;
-            case 'u':
-                adjustY = -0.5; //Y down
-                break;
-            case 'r':
-                adjustX = 0.7;
-                break;
-            case 'd':
-                adjustY = 0.7;
-                break;
-            default:
-                break;
-        }
+        double adjustY = (newDirection == 'u')? -0.5 :
+                (newDirection == 'd')? 0.7 : 0 ;
+
 
         int mapX = (int)Math.round(x/boxSize + adjustX);
         int mapY = (int)(charRows*Math.round((y - vertOffset)/boxSize + adjustY));
@@ -91,8 +77,10 @@ public class Player {
 
             case '.':
             case 'o':
-                Map.currMap.setCharAt(mapX+mapY, ' ');
-                Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13];
+                if(this instanceof Pacman) {
+                    Map.currMap.setCharAt(mapX + mapY, ' ');
+                    Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
+                }
             case ' ':
                 return true;
             default:
@@ -108,21 +96,9 @@ public class Player {
             return  playerRect;
         }
 
-        //not used for now
-        public void dyingPacman(float x, float y)
-        {
-            this.x=x;
-            this.y=y;
-            isDead=true;
-        }
 
-        public void resetPacman() {
-            x=100;
-            y=100;
-        }
 
-        public void setDead(boolean status)
-        {
-            isDead=status;
-        }
+
+
+
 }

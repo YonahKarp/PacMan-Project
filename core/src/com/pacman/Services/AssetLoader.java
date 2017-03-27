@@ -18,7 +18,7 @@ public class AssetLoader {
     public static Animation<TextureRegion> pacmAnimation;
     public static Animation<TextureRegion> dyingPacmAnimation;
 
-    public static TextureRegion pacOpen, pacMid, pacClosed, redGhost;
+    public static TextureRegion pacOpen, pacMid, pacClosed, redGhost, blueGhost, pinkGhost, orangeGhost;
     public static TextureRegion[][] mazeTiles;
 
     public static void load() {
@@ -41,6 +41,16 @@ public class AssetLoader {
 
         redGhost = new TextureRegion(ghostSheet,  2, 1, 14, 14);
         redGhost.flip(false,true);
+
+        pinkGhost = new TextureRegion(ghostSheet,  2, 17, 14, 14);
+        pinkGhost.flip(false,true);
+
+        blueGhost = new TextureRegion(ghostSheet,  2, 33, 14, 14);
+        blueGhost.flip(false,true);
+
+        orangeGhost = new TextureRegion(ghostSheet,  2, 49, 14, 14);
+        orangeGhost.flip(false,true);
+
 
         /*
          *  Dead Pacman
@@ -79,6 +89,7 @@ public class AssetLoader {
     public static void dispose() {
         // Dispose of texture when finished. File is 'large'
         pacmanSheet.dispose();
+        ghostSheet.dispose();
         mazeSheet.dispose();
     }
 
