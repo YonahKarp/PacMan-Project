@@ -68,7 +68,7 @@ public class GameRenderer {
 
         for (int i = 0; i < MAP_COLS * MAP_ROWS; i++) {
             batcher.draw(
-                    map.textureMap[i/28][i%28],
+                    Map.textureMap[i/28][i%28],
                     (i % 28)* boxsize, //x position
                     (i / 28) * boxsize + vertOffset, //y position
                     boxsize,

@@ -23,7 +23,6 @@ public class InputHandler implements InputProcessor {
         switch (keycode){
 
             case 21://left
-
                 pacman.move('l');
                 break;
             case 19://up
