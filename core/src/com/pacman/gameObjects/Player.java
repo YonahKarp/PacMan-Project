@@ -49,9 +49,7 @@ public class Player
 
     protected boolean pathIsClear(float[] position)
     {
-        char nextTile = this.map.getTileFromPosition(
-                position[0],
-                position[1]);
+        char nextTile = this.map.getTileFromPosition(position[0], position[1]);
 
         boolean tileIsValidMovementTile = this.map.tileIsValidMovementTile(nextTile);
         System.out.println("Next Tile: " + nextTile);

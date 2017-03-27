@@ -60,7 +60,7 @@ public class Pacman extends Player
     {
         float[] position = {x,y};
 
-        switch (direction){
+        switch (direction) {
             case 'l':
                 position[0] = x - speed*delta; // distance = speed * time
                 break;

@@ -25,6 +25,9 @@ public class Map {
         int tilePosX = (int)(x / tileSize);
         int tilePosY = (int)(y / tileSize);
 
+        System.out.println("Currently at position: " + x + ", " + y);
+        System.out.println("Fetch tile at pos: " + tilePosX + ", " + tilePosY);
+        System.out.println("Fetch tile from array at: " + (tilePosX * tilePosY));
         return mapStringArray[tilePosX * tilePosY];
     }
 
