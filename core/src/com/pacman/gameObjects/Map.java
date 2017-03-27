@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.pacman.Services.AssetLoader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by YonahKarp on 3/13/17.
@@ -15,6 +16,7 @@ public class Map {
         textureMap = createTextureMap(mapString);
     }
 
+<<<<<<< HEAD
     //static string can be called anywhere
     //                          123456789     15   20   25 28
     static String mapString =  "╔════════════┱┲════════════╗"+
@@ -52,6 +54,59 @@ public class Map {
     static StringBuilder currMap = new StringBuilder(mapString);
 
     public static TextureRegion[][] textureMap = createTextureMap(mapString);
+=======
+    public char getTileFromPosition(float x, float y)
+    {
+        char[] mapStringArray = mapString.toCharArray();
+
+        //Hard coding tile size for now but this should probably be dynamically declared
+        int tileSize = 8;
+        int tilePosX = (int)(x / tileSize);
+        int tilePosY = (int)(y / tileSize);
+
+        return mapStringArray[tilePosX * tilePosY];
+    }
+
+    public boolean tileIsValidMovementTile(char t)
+    {
+        return t == ' ' || t == '.' || t == 'o' || t == 'R';
+    }
+
+    //                  123456789     15   20   25
+    String mapString = "╔╧╧╧╧╧╧╧╧╧╧╧╧┱┲╧╧╧╧╧╧╧╧╧╧╧╧╗"+
+                       "╢............├┤............╟"+
+                       "╢.╭┴┴╮.╭┴┴┴╮.├┤.╭┴┴┴╮.╭┴┴╮.╟"+
+                       "╢o┤  ├.┤   ├.├┤.┤   ├.┤  ├o╟"+
+                       "╢.╰┬┬╯.╰┬┬┬╯.└┘.╰┬┬┬╯.╰┬┬╯.╟"+
+                       "╢..........................╟"+
+                       "╢.╭┴┴╮.╭╮.╭┴┴┴┴┴┴╮.╭╮.╭┴┴╮.╟"+
+                       "╢.╰┬┬╯.┤├.╰┬┬┐┌┬┬╯.┤├.╰┬┬╯.╟"+
+                       "╢......┤├....┤├....┤├......╟"+
+                       "╚╧╧╧╧╗.┤└┴┴╮ ┤├ ╭┴┴┘├.╔╧╧╧╧╝" +
+                       "     ╟.┤┌┬┬╯ ╰╯ ╰┬┬┐├.╢     " +
+                       "     ╟.┤├    R     ┤├.╢     " +
+                       "     ╟.┤├ ┏╤╤┄┄╤╤┓ ┤├.╢     " +
+                       "╤╤╤╤╤╝.╰╯ ╟      ╢ ╰╯.╚╤╤╤╤╤" +
+                       "      .   ╟B P O ╢   .      " +
+                       "╧╧╧╧╧╗.╭╮ ╟      ╢ ╭╮.╔╧╧╧╧╧" +
+                       "     ╟.┤├ ┗╧╧╧╧╧╧┛ ┤├.╢     " +
+                       "     ╟.┤├          ┤├.╢     " +
+                       "     ╟.┤├ ╭┴┴┴┴┴┴╮ ┤├.╢     " +
+                       "╔╤╤╤╤╝.╰╯ ╰┬┬┐┌┬┬╯ ╰╯.╚╤╤╤╤╗" +
+                       "╢............┤├............╟" +
+                       "╢.╭┴┴╮.╭┴┴┴╮.┤├.╭┴┴┴╮.╭┴┴╮.╟" +
+                       "╢.╰┬┐├.╰┬┬┬╯.╰╯.╰┬┬┬╯.┤┌┬╯.╟" +
+                       "╢o..┤├............... ┤├..o╟" +
+                       "┡┬┐.┤├.╭╮.╭┴┴┴┴┴┴╮.╭╮.┤├.┌┬┩" +
+                       "┢┴┘.╰╯.┤├.╰┬┬┐┌┬┬╯.┤├.╰╯.└┴┪" +
+                       "╢......┤├....┤├....┤├......╟" +
+                       "╢.╭┴┴┴┴┘└┴┴╮.┤├.╭┴┴┘└┴┴┴┴╮.╟" +
+                       "╢.╰┬┬┬┬┬┬┬┬╯.╰╯.╰┬┬┬┬┬┬┬┬╯.╟" +
+                       "╢..........................╟" +
+                       "╚╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╤╝";
+
+    public TextureRegion[][] textureMap = createTextureMap(mapString);
+>>>>>>> a3a9a869cc5d1d0206579e492893077f66d08991
 
     /*
     String mapString2 = "╔════════════┱┲════════════╗"+
