@@ -1,8 +1,10 @@
 package com.pacman.game;
 
+import com.pacman.Services.AssetLoader;
+import com.pacman.gameObjects.Ghost;
 import com.pacman.gameObjects.Map;
 import com.pacman.gameObjects.Pacman;
-import com.pacman.gameObjects.RedGhost;
+
 
 /**
  * This class does updates the frames
@@ -10,18 +12,31 @@ import com.pacman.gameObjects.RedGhost;
 public class GameEnvironment {
     private Pacman pacman;
     private Map map;
-    private RedGhost redGhost;
+    //private RedGhost redGhost;
+
+    private Ghost[] ghosts;
+
 
     public GameEnvironment(){
-        redGhost = new RedGhost(70,90);
         map = new Map();
-        pacman = new Pacman(100,100, 32,0,map);
+        pacman = new Pacman(75,142,0); //we pass the map for collision detection
+        ghosts = new Ghost[]{
+                new Ghost(70, 80, AssetLoader.redGhost),
+                new Ghost(70, 90, AssetLoader.blueGhost),
+                new Ghost(70, 85, AssetLoader.pinkGhost),
+                new Ghost(70, 75,AssetLoader.orangeGhost)
+        };
+
     }
 
 
     public void update(float delta) {
         pacman.update(delta);
-        redGhost.update(delta);
+        for (Ghost ghost: ghosts) {
+            ghost.update(delta);
+        }
+
+
     }
 
 
@@ -33,5 +48,5 @@ public class GameEnvironment {
         return map;
     }
 
-    public RedGhost getRedGhost() { return redGhost; }
+    public Ghost[] getGhosts() { return ghosts; }
 }

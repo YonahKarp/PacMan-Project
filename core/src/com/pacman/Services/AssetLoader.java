@@ -18,7 +18,7 @@ public class AssetLoader {
     public static Animation<TextureRegion> pacmAnimation;
     public static Animation<TextureRegion> dyingPacmAnimation;
 
-    public static TextureRegion pacOpen, pacMid, pacClosed, redGhost;
+    public static TextureRegion pacOpen, pacMid, pacClosed, redGhost, blueGhost, pinkGhost, orangeGhost;
     public static TextureRegion[][] mazeTiles;
 
     public static void load() {
@@ -39,8 +39,18 @@ public class AssetLoader {
         ghostSheet = new Texture(Gdx.files.internal("ghostSheet.png"));
         // pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
 
-        redGhost = new TextureRegion(ghostSheet,  3, 1, 15, 16);
+        redGhost = new TextureRegion(ghostSheet,  2, 1, 14, 14);
         redGhost.flip(false,true);
+
+        pinkGhost = new TextureRegion(ghostSheet,  2, 17, 14, 14);
+        pinkGhost.flip(false,true);
+
+        blueGhost = new TextureRegion(ghostSheet,  2, 33, 14, 14);
+        blueGhost.flip(false,true);
+
+        orangeGhost = new TextureRegion(ghostSheet,  2, 49, 14, 14);
+        orangeGhost.flip(false,true);
+
 
         /*
          *  Dead Pacman
@@ -65,13 +75,11 @@ public class AssetLoader {
         /*
          *  Map
          */
-        mazeSheet = new Texture(Gdx.files.internal("mazeSheet2.png"));
+        mazeSheet = new Texture(Gdx.files.internal("mazeSheet3.png"));
 
 
         final int FRAME_COLS = 13, FRAME_ROWS = 3;
-        mazeTiles = TextureRegion.split(mazeSheet,
-                8,
-                8);
+        mazeTiles = TextureRegion.split(mazeSheet, 8, 8);
 
         System.out.println(mazeTiles.length);
 
@@ -81,6 +89,7 @@ public class AssetLoader {
     public static void dispose() {
         // Dispose of texture when finished. File is 'large'
         pacmanSheet.dispose();
+        ghostSheet.dispose();
         mazeSheet.dispose();
     }
 
