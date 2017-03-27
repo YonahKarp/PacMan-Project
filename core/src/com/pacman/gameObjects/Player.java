@@ -39,10 +39,7 @@ public class Player {
         return rotation;
     }
 
-    public boolean pathIsClear(char newDirection){
-
-
-
+    public boolean pathIsClear(char newDirection) {
         //board bounds
         if(x < 0) {
             x= 142;
@@ -56,7 +53,9 @@ public class Player {
         }
 
         float boxSize = 5.35f;
+
         float vertOffset =21.4f;
+
         int charRows = 28;
 
         double adjustX = (newDirection == 'l')? -0.65 :
@@ -65,13 +64,11 @@ public class Player {
         double adjustY = (newDirection == 'u')? -0.65 :
                 (newDirection == 'd')? 0.65 : 0 ;
 
-
         int mapX = (int)Math.round(x/boxSize + adjustX);
         int mapY = (int)(charRows*Math.round((y - vertOffset)/boxSize + adjustY));
 
 
         switch (Map.currMap.charAt(mapX+mapY)) {
-
             case '.':
             case 'o':
                 if(this instanceof Pacman) {

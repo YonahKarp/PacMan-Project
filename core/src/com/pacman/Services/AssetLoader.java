@@ -47,28 +47,28 @@ public class AssetLoader {
         redGhostImages[0].flip(false,true);
         redGhostImages[1] = new TextureRegion(ghostSheet,  18, 1, 14, 14);
         redGhostImages[1].flip(false,true);
-        redGhost = new Animation<>(0.1f, redGhostImages);
+        redGhost = new Animation<TextureRegion>(0.1f, redGhostImages);
 
         pinkGhostImages = new TextureRegion[2];
         pinkGhostImages[0] = new TextureRegion(ghostSheet,  2, 17, 14, 14);
         pinkGhostImages[0].flip(false,true);
         pinkGhostImages[1] = new TextureRegion(ghostSheet,  18, 17, 14, 14);
         pinkGhostImages[1].flip(false,true);
-        pinkGhost = new Animation<>(0.1f, pinkGhostImages);
+        pinkGhost = new Animation<TextureRegion>(0.1f, pinkGhostImages);
 
         blueGhostImages = new TextureRegion[2];
         blueGhostImages[0] = new TextureRegion(ghostSheet,  2, 33, 14, 14);
         blueGhostImages[0].flip(false,true);
         blueGhostImages[1] = new TextureRegion(ghostSheet,  18, 33, 14, 14);
         blueGhostImages[1].flip(false,true);
-        blueGhost = new Animation<>(0.1f, blueGhostImages);
+        blueGhost = new Animation<TextureRegion>(0.1f, blueGhostImages);
 
         orangeGhostImages = new TextureRegion[2];
         orangeGhostImages[0] = new TextureRegion(ghostSheet,  2, 49, 14, 14);
         orangeGhostImages[0].flip(false,true);
         orangeGhostImages[1] = new TextureRegion(ghostSheet,  18, 49, 14, 14);
         orangeGhostImages[1].flip(false,true);
-        orangeGhost = new Animation<>(0.1f, orangeGhostImages);
+        orangeGhost = new Animation<TextureRegion>(0.1f, orangeGhostImages);
 
 
 
@@ -91,7 +91,7 @@ public class AssetLoader {
                 new TextureRegion(pacmanSheet, 212, 1, 13, 13),
         };
 
-        dyingPacmAnimation = new Animation<>(0.1f, dyingPacman);
+        dyingPacmAnimation = new Animation<TextureRegion>(0.1f, dyingPacman);
         dyingPacmAnimation.setPlayMode(Animation.PlayMode.NORMAL); //nom nom nom
 
         /*
@@ -108,7 +108,7 @@ public class AssetLoader {
                 new TextureRegion(mazeTiles[2][12])
         };
 
-        powerPellet = new Animation<>(0.15f, powerPelletImages);
+        powerPellet = new Animation<TextureRegion>(0.15f, powerPelletImages);
 
     }
 

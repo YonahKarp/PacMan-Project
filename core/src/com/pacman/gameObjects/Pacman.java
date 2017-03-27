@@ -47,10 +47,10 @@ public class Pacman extends Player
         }
     }
 
-    public void move(char direction){
+    public void move(char direction) {
         //System.out.println("move");
         //System.err.println("pac "+getRect().getX()+" "+getRect().getY());
-        switch (direction){
+        switch (direction) {
             case 'l':
                 if (pathIsClear('l')) { //prevent direction change if blocked (like classic game)
                     this.direction = direction;
