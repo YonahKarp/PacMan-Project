@@ -1,6 +1,7 @@
 package com.pacman.Services;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -22,9 +23,15 @@ public class AssetLoader {
     public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, powerPelletImages;
     public static TextureRegion[][] mazeTiles;
 
+    public static Sound introMusic, nomnom, death;
+
     public static void load() {
 
-        pacmanSheet = new Texture(Gdx.files.internal("pacmanSheet.png"));
+
+        /**
+         * Images
+         */
+        pacmanSheet = new Texture(Gdx.files.internal("img/pacmanSheet.png"));
         pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
         pacOpen = new TextureRegion(pacmanSheet, 3, 1, 13, 13); //location on sprite sheet
         //pacOpen.flip(false, true); //may need to be flipped in Y down paradigm
@@ -39,7 +46,7 @@ public class AssetLoader {
 
 
 
-        ghostSheet = new Texture(Gdx.files.internal("ghostSheet.png"));
+        ghostSheet = new Texture(Gdx.files.internal("img/ghostSheet.png"));
         // pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
 
         redGhostImages = new TextureRegion[2];
@@ -70,10 +77,6 @@ public class AssetLoader {
         orangeGhostImages[1].flip(false,true);
         orangeGhost = new Animation<TextureRegion>(0.1f, orangeGhostImages);
 
-
-
-
-
         /*
          *  Dead Pacman
          */
@@ -97,7 +100,7 @@ public class AssetLoader {
         /*
          *  Map
          */
-        mazeSheet = new Texture(Gdx.files.internal("mazeSheet3.png"));
+        mazeSheet = new Texture(Gdx.files.internal("img/mazeSheet3.png"));
 
 
         final int FRAME_COLS = 13, FRAME_ROWS = 3;
@@ -109,6 +112,18 @@ public class AssetLoader {
         };
 
         powerPellet = new Animation<TextureRegion>(0.15f, powerPelletImages);
+
+        /**
+         * Audio
+         */
+        introMusic = Gdx.audio.newSound(Gdx.files.internal("audio/introMusic.ogg"));
+        nomnom = Gdx.audio.newSound(Gdx.files.internal("audio/nomnom.ogg"));
+        death = Gdx.audio.newSound(Gdx.files.internal("audio/death.ogg"));
+
+
+
+
+
 
     }
 

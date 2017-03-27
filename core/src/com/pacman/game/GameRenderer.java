@@ -57,7 +57,7 @@ public class GameRenderer {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batcher.begin();
-        batcher.disableBlending();
+        batcher.enableBlending();
 
         TextureRegion currentFrame = AssetLoader.pacmAnimation.getKeyFrame(runTime, true);
         TextureRegion dyingPac = AssetLoader.dyingPacmAnimation.getKeyFrame(runTime, false);

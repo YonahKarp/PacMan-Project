@@ -2,6 +2,7 @@ package com.pacman.gameObjects;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.pacman.Services.AssetLoader;
+import com.pacman.Services.SoundService;
 
 import static com.pacman.Services.AssetLoader.redGhost;
 
@@ -73,6 +74,10 @@ public class Player {
             case 'o':
                 if(this instanceof Pacman) {
                     Map.currMap.setCharAt(mapX + mapY, ' ');
+                    if(!SoundService.getNomnomIsPlaying()){
+                        SoundService.setNomnomIsPlaying();
+                    }
+
                     Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
                 }
                 //todo add invinsability

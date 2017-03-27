@@ -3,6 +3,9 @@ package com.pacman.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.pacman.Services.AssetLoader;
 import com.pacman.game.GameRenderer;
 import com.pacman.game.GameEnvironment;
 import com.pacman.Services.InputHandler;
@@ -25,6 +28,7 @@ public class PacmanGameScreen implements Screen {
 
         Gdx.input.setInputProcessor(new InputHandler(this.environment.getPacman(), this.environment.getMap()));
 
+
     }
 
     @Override
@@ -35,12 +39,17 @@ public class PacmanGameScreen implements Screen {
     @Override
     public void render(float delta) {
 
+        if(runtime == 0) {
+            AssetLoader.introMusic.play(1f);
+        }
         /**
          * Every frame: we update, then render
          */
+
         runtime += delta;
         environment.update(delta);
         renderer.render(runtime);
+
 
     }
 
