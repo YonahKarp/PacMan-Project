@@ -2,26 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14daba0f-4104-4525-9d31-e8d1c753e64a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/RedGhost.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/com/pacman/gameObjects/RedGhost.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/Services/SoundService$1.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/Services/SoundService$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/Services/SoundService$2.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/Services/SoundService$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/Services/SoundService.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/Services/SoundService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/game/GameEnvironment.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/game/GameEnvironment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/game/GameRenderer.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/game/GameRenderer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/Ghost.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/Ghost.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/Map.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/Map.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/Pacman$1.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/Pacman$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/Pacman.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/Pacman.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/Player.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/gameObjects/Player.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/build/classes/main/com/pacman/screens/PacmanGameScreen.class" afterPath="$PROJECT_DIR$/core/build/classes/main/com/pacman/screens/PacmanGameScreen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/pacman/game/GameEnvironment.java" afterPath="$PROJECT_DIR$/core/src/com/pacman/game/GameEnvironment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/pacman/game/GameRenderer.java" afterPath="$PROJECT_DIR$/core/src/com/pacman/game/GameRenderer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Ghost.java" afterPath="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Ghost.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Map.java" afterPath="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Map.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Pacman.java" afterPath="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Pacman.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Player.java" afterPath="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Player.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -73,14 +53,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/src/com/pacman/gameObjects/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="51" column="9" lean-forward="true" selection-start-line="51" selection-start-column="9" selection-end-line="51" selection-end-column="9" />
+            <state relative-caret-position="176">
+              <caret line="45" column="9" lean-forward="true" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
               <folding>
-                <element signature="e#2865#2866#0" expanded="true" />
-                <element signature="e#2919#2920#0" expanded="true" />
+                <element signature="e#2962#2963#0" expanded="true" />
+                <element signature="e#3016#3017#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -106,7 +86,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pacman.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Pacman.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/pacman/gameObjects/Pacman.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
@@ -1123,9 +1103,9 @@
         <option value="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Map.java" />
         <option value="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Ghost.java" />
         <option value="$PROJECT_DIR$/core/src/com/pacman/game/GameRenderer.java" />
-        <option value="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Player.java" />
         <option value="$PROJECT_DIR$/core/src/com/pacman/gameObjects/RedGhost.java" />
         <option value="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Pacman.java" />
+        <option value="$PROJECT_DIR$/core/src/com/pacman/gameObjects/Player.java" />
       </list>
     </option>
   </component>
@@ -1793,8 +1773,8 @@
         <state relative-caret-position="110">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding>
-            <element signature="e#2865#2866#0" expanded="true" />
-            <element signature="e#2919#2920#0" expanded="true" />
+            <element signature="e#2962#2963#0" expanded="true" />
+            <element signature="e#3016#3017#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1869,8 +1849,8 @@
         <state relative-caret-position="110">
           <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding>
-            <element signature="e#2865#2866#0" expanded="true" />
-            <element signature="e#2919#2920#0" expanded="true" />
+            <element signature="e#2962#2963#0" expanded="true" />
+            <element signature="e#3016#3017#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2068,17 +2048,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/pacman/gameObjects/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="51" column="9" lean-forward="true" selection-start-line="51" selection-start-column="9" selection-end-line="51" selection-end-column="9" />
-          <folding>
-            <element signature="e#2865#2866#0" expanded="true" />
-            <element signature="e#2919#2920#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/pacman/game/GameRenderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -2112,6 +2081,17 @@
         <state relative-caret-position="105">
           <caret line="52" column="38" lean-forward="false" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/pacman/gameObjects/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="45" column="9" lean-forward="true" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+          <folding>
+            <element signature="e#2962#2963#0" expanded="true" />
+            <element signature="e#3016#3017#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

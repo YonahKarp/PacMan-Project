@@ -42,11 +42,12 @@ public class Player {
     public boolean pathIsClear(char newDirection) {
 
      //tunneling
-        if(x < 0) {
+        if(x < 0.8 && direction!='r') //ensure pacman didnt just come through the tunnel
+        {
             x= 142;
             return true;
         }
-        if(x > 142) {
+        if(x > 142 && direction!='l') {
             x = 0;
             return true;
         }
