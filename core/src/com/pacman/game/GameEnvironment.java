@@ -4,6 +4,7 @@ import com.pacman.Services.AssetLoader;
 import com.pacman.gameObjects.Ghost;
 import com.pacman.gameObjects.Map;
 import com.pacman.gameObjects.Pacman;
+import com.pacman.gameObjects.RedGhost;
 
 
 /**
@@ -21,10 +22,11 @@ public class GameEnvironment {
         map = new Map();
         pacman = new Pacman(72,144f,0); //we pass the map for collision detection
         ghosts = new Ghost[]{
-                new Ghost(70, 80, AssetLoader.redGhost),
-                new Ghost(70, 90, AssetLoader.blueGhost),
-                new Ghost(70, 85, AssetLoader.pinkGhost),
-                new Ghost(70, 75,AssetLoader.orangeGhost)
+                new RedGhost(72, 80, AssetLoader.redGhost),
+
+                new Ghost(68, 100, AssetLoader.blueGhost),
+                new Ghost(72, 100, AssetLoader.pinkGhost),
+                new Ghost(76, 100,AssetLoader.orangeGhost)
         };
 
     }
@@ -33,7 +35,7 @@ public class GameEnvironment {
     public void update(float delta) {
         pacman.update(delta);
         for (Ghost ghost: ghosts) {
-            ghost.update(delta);
+            ghost.update(delta, pacman);
         }
 
 

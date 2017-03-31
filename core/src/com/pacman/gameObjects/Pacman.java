@@ -1,6 +1,7 @@
 package com.pacman.gameObjects;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -13,13 +14,13 @@ public class Pacman extends Player
     private boolean _isInvincible = false;
 
     private int speed = 40;
-
+    private Rectangle playerRect;  //to encapsulate pacman for collision detection
 
     public Pacman(){}
 
     public Pacman(float x, float y, float rotation){
         super(x,y,rotation);
-
+        playerRect= new Rectangle(x,y,7,7);
     }
 
     public void update(float delta) {
@@ -50,7 +51,6 @@ public class Pacman extends Player
     }
 
     public void move(char direction) {
-        //System.out.println("move");
         //System.err.println("pac "+getRect().getX()+" "+getRect().getY());
         switch (direction) {
             case 'l':
@@ -120,5 +120,12 @@ public class Pacman extends Player
 
     public boolean isInvincible() {
         return _isInvincible;
+    }
+
+    //get rectangle to check if intersects with ghost's rectangle
+    public Rectangle getRect()
+    {
+        playerRect.setPosition(x,y);
+        return  playerRect;
     }
 }

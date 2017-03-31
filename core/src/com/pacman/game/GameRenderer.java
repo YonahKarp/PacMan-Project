@@ -110,7 +110,10 @@ public class GameRenderer {
 
             //check if pacman collides with ghost
             if (Intersector.overlaps(pacman.getRect(), ghost.getRect())) {
-                ghost.resetGhost();  //put ghost back in starting position
+                for (Ghost g:ghosts) {
+                    g.resetGhost();  //put ghost back in starting position
+                }
+
                 //pacman.dyingPacman(prevPacman.x,prevPacman.y);  //not used for now
                 if(!pacman.isInvincible()) {
                     System.err.println("dead");

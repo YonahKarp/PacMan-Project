@@ -1,6 +1,5 @@
 package com.pacman.gameObjects;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.*;
 import com.pacman.Services.AssetLoader;
 import com.pacman.Services.SoundService;
 
@@ -12,10 +11,10 @@ import static com.pacman.Services.AssetLoader.redGhost;
 public class Player {
     float x;
     float y;
-
+    Vector2 playerLocation;
     float rotation;
     char direction = ' ';
-    private Rectangle playerRect;  //to encapsulate pacman for collision detection
+
 
 
     public Player(){}
@@ -24,8 +23,8 @@ public class Player {
         this.x = x;
         this.y = y;
         this.rotation = rotation;
+        playerLocation = new Vector2(x,y);
 
-        playerRect= new Rectangle(x,y,7,7);
     }
 
     public float getX() {
@@ -67,7 +66,6 @@ public class Player {
         int mapX = (int)Math.round(x/boxSize + adjustX);
         int mapY = (int)(charRows*Math.round((y - vertOffset)/boxSize + adjustY));
 
-
         switch (Map.currMap.charAt(mapX+mapY)) {
             case 'o':
                 if(this instanceof Pacman) {
@@ -84,21 +82,31 @@ public class Player {
                 }
                 //todo add invinsability
             case ' ':
+                //for debugging:
+                //System.err.println(newDirection+": x:"+mapX+" y:"+mapY+" clear");
                 return true;
+            case '&':  //dont allow back into ghosthouse
+                if(newDirection=='u'){
+                    return true;}
+                else
+                    return false;
+            case '!':  //send out of ghost house
+                if(newDirection=='l'||newDirection=='r'||newDirection=='d')
+                    return false;
+                else
+                    return true;
             default:
+                //for debugging:
+                //System.err.println(newDirection+": x:"+mapX+" y:"+mapY+" blocked");
                 return false;
         }
     }
 
 
-        //get rectangle to check if intersects with ghost's rectangle
-        public Rectangle getRect()
+        public Vector2 getCoord()
         {
-            playerRect.setCenter(x,y);
-            return  playerRect;
+            return playerLocation.set(x,y);
         }
-
-
 
 
 
