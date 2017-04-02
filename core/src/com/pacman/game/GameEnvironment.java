@@ -1,10 +1,7 @@
 package com.pacman.game;
 
 import com.pacman.Services.AssetLoader;
-import com.pacman.gameObjects.Ghost;
-import com.pacman.gameObjects.Map;
-import com.pacman.gameObjects.Pacman;
-import com.pacman.gameObjects.RedGhost;
+import com.pacman.gameObjects.*;
 
 
 /**
@@ -22,11 +19,10 @@ public class GameEnvironment {
         map = new Map();
         pacman = new Pacman(72,144f,0); //we pass the map for collision detection
         ghosts = new Ghost[]{
-                new RedGhost(72, 80, AssetLoader.redGhost),
-
-                new Ghost(68, 100, AssetLoader.blueGhost),
-                new Ghost(72, 100, AssetLoader.pinkGhost),
-                new Ghost(76, 100,AssetLoader.orangeGhost)
+                new RedGhost(AssetLoader.redGhost),
+                //new Ghost(68, 100, AssetLoader.blueGhost),
+                new PinkGhost(AssetLoader.pinkGhost),
+                //new Ghost(76, 100,AssetLoader.orangeGhost)
         };
 
     }
