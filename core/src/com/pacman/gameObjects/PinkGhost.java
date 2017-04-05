@@ -22,7 +22,7 @@ public class PinkGhost extends Ghost
         Vector2 pacCoord = pacman.getCoord();
         float pacX = pacCoord.x;
         float pacY = pacCoord.y;
-        currentDirection = getDirection();
+        currentDirection = pacman.getDirection();
         switch (currentDirection) {
             case 'u':
                 target.set(pacX, (pacY+32));

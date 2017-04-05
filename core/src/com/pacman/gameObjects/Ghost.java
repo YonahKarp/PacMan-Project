@@ -51,7 +51,8 @@ public class Ghost extends Player {
         }
         Vector2 ghostCoord = this.getCoord();
         Vector2 target = getTarget(pacman);
-        System.err.println(speed*delta+" pacman:"+pacman.getCoord()+" ghost:"+ghostCoord +" target:"+target);
+        //For debugging
+        // System.err.println(speed*delta+" pacman:"+pacman.getCoord()+" ghost:"+ghostCoord +" target:"+target);
         Vector2 temp, temp2 = this.getCoord();
         float closestPath = Integer.MAX_VALUE;
         if (pathIsClear('u') && currentDirection != 'd')  //ghostCoordst isnt allowed to reverse direction

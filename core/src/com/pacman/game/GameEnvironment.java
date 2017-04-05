@@ -18,9 +18,10 @@ public class GameEnvironment {
     public GameEnvironment(){
         map = new Map();
         pacman = new Pacman(72,144f,0); //we pass the map for collision detection
+        RedGhost redGhost = new RedGhost(AssetLoader.redGhost);
         ghosts = new Ghost[]{
-                new RedGhost(AssetLoader.redGhost),
-                //new Ghost(68, 100, AssetLoader.blueGhost),
+                redGhost,
+                new BlueGhost(redGhost, AssetLoader.blueGhost),
                 new PinkGhost(AssetLoader.pinkGhost),
                 //new Ghost(76, 100,AssetLoader.orangeGhost)
         };

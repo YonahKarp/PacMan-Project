@@ -12,7 +12,7 @@ public class Pacman extends Player
 
     private boolean isDead = false;
     private boolean _isInvincible = false;
-
+    private char currentDirection = ' ';
     private int speed = 40;
     private Rectangle playerRect;  //to encapsulate pacman for collision detection
 
@@ -52,6 +52,7 @@ public class Pacman extends Player
 
     public void move(char direction) {
         //System.err.println("pac "+getRect().getX()+" "+getRect().getY());
+        currentDirection = direction;
         switch (direction) {
             case 'l':
                 if (pathIsClear('l')) { //prevent direction change if blocked (like classic game)
@@ -121,6 +122,8 @@ public class Pacman extends Player
     public boolean isInvincible() {
         return _isInvincible;
     }
+
+    public char getDirection(){return currentDirection;}
 
     //get rectangle to check if intersects with ghost's rectangle
     public Rectangle getRect()
