@@ -23,7 +23,7 @@ public class GameEnvironment {
                 redGhost,
                 new BlueGhost(redGhost, AssetLoader.blueGhost),
                 new PinkGhost(AssetLoader.pinkGhost),
-                //new Ghost(76, 100,AssetLoader.orangeGhost)
+                new OrangeGhost(AssetLoader.orangeGhost)
         };
 
     }

@@ -106,7 +106,8 @@ public class Ghost extends Player {
         currentDirection = preDirection;
         x = temp2.x;
         y = temp2.y;
-        //for debugging: System.err.println(currentDirection+" *** "+temp2.x+" "+temp2.y);
+        //for debugging:
+        System.err.println(temp2.x+" "+temp2.y+" pac: "+pacman.getX()+","+pacman.getY());
     }
 
 
