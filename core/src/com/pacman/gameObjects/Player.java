@@ -1,6 +1,7 @@
 package com.pacman.gameObjects;
 import com.badlogic.gdx.math.*;
 import com.pacman.Services.AssetLoader;
+import com.pacman.Services.ProgressKeeper;
 import com.pacman.Services.SoundService;
 
 import static com.pacman.Services.AssetLoader.redGhost;
@@ -72,6 +73,7 @@ public class Player {
                 if(this instanceof Pacman) {
                     ((Pacman) (this)).setInvincibleTrue();
                     AssetLoader.powerPacman.play();
+                    ProgressKeeper.addToScore(50);
                 }
             case '.':
                 if(this instanceof Pacman) {
@@ -80,22 +82,20 @@ public class Player {
                         SoundService.setNomnomIsPlaying();
 
                     Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
+                    ProgressKeeper.addToScore(10);
                 }
-                //todo add invinsability
             case ' ':
                 //for debugging:
                 //System.err.println(newDirection+": x:"+mapX+" y:"+mapY+" clear");
                 return true;
             case '&':  //dont allow back into ghosthouse
-                if(newDirection=='u'){
-                    return true;}
-                else
-                    return false;
+                return newDirection == 'u';
             case '!':  //send out of ghost house
-                if(newDirection=='l'||newDirection=='r'||newDirection=='d')
-                    return false;
-                else
-                    return true;
+                return !(newDirection == 'l' || newDirection == 'r' || newDirection == 'd');
+            case '>':  //send out of ghost house
+                return !(newDirection == 'l' || newDirection == 'd');
+            case '<':  //send out of ghost house
+                return !(newDirection == 'r' || newDirection == 'd');
             default:
                 //for debugging:
                 //System.err.println(newDirection+": x:"+mapX+" y:"+mapY+" blocked");
@@ -103,13 +103,8 @@ public class Player {
         }
     }
 
-
         public Vector2 getCoord()
         {
             return playerLocation.set(x,y);
         }
-
-
-
-
 }

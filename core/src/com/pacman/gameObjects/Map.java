@@ -31,9 +31,9 @@ public class Map {
                                "     ║.┤┌┬┬╯ ╰╯ ╰┬┬┐├.║     " +
                                "     ║.┤├          ┤├.║     " +
                                "     ║.┤├ ┏══&&══┓ ┤├.║     " +
-                               "═════╝.╰╯ ║xx!!xx║ ╰╯.╚═════" +
-                               "      .   ║xx!!xx║   .      " +
-                               "═════╗.╭╮ ║xx!!xx║ ╭╮.╔═════" +
+                               "═════╝.╰╯ ║>>><<<║ ╰╯.╚═════" +
+                               "      .   ║>>><<<║   .      " +
+                               "═════╗.╭╮ ║>>><<<║ ╭╮.╔═════" +
                                "     ║.┤├ ┗══════┛ ┤├.║     " +
                                "     ║.┤├          ┤├.║     " +
                                "     ║.┤├ ╭┴┴┴┴┴┴╮ ┤├.║     " +
@@ -50,7 +50,7 @@ public class Map {
                                "║..........................║" +
                                "╚══════════════════════════╝";
 
-    static StringBuilder currMap = new StringBuilder(mapString);
+     static StringBuilder currMap = new StringBuilder(mapString);
 
     public static TextureRegion[][] textureMap = createTextureMap(mapString);
 
@@ -236,5 +236,10 @@ public class Map {
         }
 
         return map;
+    }
+
+    public static void resetMap(){
+        currMap = new StringBuilder(mapString);
+        textureMap = createTextureMap(mapString);
     }
 }

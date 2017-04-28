@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class BlueGhost extends Ghost
 {
-    final static int startingX = 68;
-    final static int startingY = 100;
+    final static int startingX = 84;
+    final static int startingY = 95;
     RedGhost redGhost;
     public BlueGhost (RedGhost rg, Animation<TextureRegion> animation) {
         super(startingX, startingY, animation);

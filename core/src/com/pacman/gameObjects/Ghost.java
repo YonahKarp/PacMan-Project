@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.pacman.Services.AssetLoader;
 import org.omg.CORBA.Environment;
 
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -20,6 +21,8 @@ public class Ghost extends Player {
     private Animation<TextureRegion> edibleAnimation = AssetLoader.edibleGhost;
 
     private int currMove = 3; //start by moving up
+
+    double restTimer = 5;
 
 
     public Ghost(float x, float y, Animation<TextureRegion> animation)
@@ -35,9 +38,16 @@ public class Ghost extends Player {
     }
 
     protected char currentDirection = 'e',preDirection;
-    private int speed = 38;
+    private int speed = 30;
+
 
     public void update(float delta, Pacman pacman) {
+
+        if (restTimer > 0){
+            restTimer -= delta;
+            return;
+        }
+
         //for debugging:
         //System.err.println("----"+this.getX()+" "+this.getY());
         if(x < 0.8 && direction!='r') //ensure pacman didnt just come through the tunnel
@@ -165,6 +175,7 @@ public class Ghost extends Player {
         currentDirection = 'e';
         this.x = x;
         this.y = y;
+        restTimer = 5;
     }
 
     public Animation<TextureRegion> getAnimation() {

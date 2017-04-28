@@ -28,10 +28,11 @@ public class PacmanGameScreen implements Screen {
 
         //todo play introMusic while paused with screen behind
         SoundService.setIntroIsPlaying();
+        /*
         while(SoundService.getIntroIsPlaying()){
             try {Thread.sleep(200);}
             catch (InterruptedException e) {}
-        }
+        }*/
 
 
         Gdx.input.setInputProcessor(new InputHandler(this.environment.getPacman(), this.environment.getMap()));

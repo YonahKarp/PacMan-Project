@@ -1,14 +1,19 @@
 package com.pacman.game;
-import com.badlogic.gdx.graphics.TextureArray;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.pacman.Services.AssetLoader;
+import com.pacman.Services.ProgressKeeper;
 import com.pacman.gameObjects.Ghost;
 import com.pacman.gameObjects.Map;
 import com.pacman.gameObjects.Pacman;
@@ -61,6 +66,15 @@ public class GameRenderer {
 
         TextureRegion currentFrame = AssetLoader.pacmAnimation.getKeyFrame(runTime, true);
         TextureRegion dyingPac = AssetLoader.dyingPacmAnimation.getKeyFrame(runTime, false);
+
+        BitmapFont score = new BitmapFont();
+        score.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); //fix blur
+        score.setUseIntegerPositions(false); //fix kerning (space btw letters)
+        score.getData().setScale(.3f, -.3f);
+        score.draw(batcher, "score: " + ProgressKeeper.getScore() + " Lives: " + ProgressKeeper.getLives() + " \n HighScore: " + ProgressKeeper.getHighScore(), 20, 0);
+
+
+
         Vector2 prevPacman = new Vector2(pacman.getX(), pacman.getY());  //save pacmans previous postion if needed
 
         final int MAP_COLS = 28, MAP_ROWS = 31;
@@ -68,7 +82,7 @@ public class GameRenderer {
         final float vertOffset = 21.4f;
 
         for (int i = 0; i < MAP_COLS * MAP_ROWS; i++) {
-
+            
             batcher.draw(
                     (!(Map.textureMap[i / 28][i % 28] instanceof PowerPellet))?
                             Map.textureMap[i / 28][i % 28] : ((PowerPellet)(Map.textureMap[i / 28][i % 28])).getAnimation().getKeyFrame(runTime, true),
@@ -110,16 +124,26 @@ public class GameRenderer {
 
             //check if pacman collides with ghost
             if (Intersector.overlaps(pacman.getRect(), ghost.getRect())) {
-                for (Ghost g:ghosts) {
-                    g.resetGhost();  //put ghost back in starting position
-                }
+
 
                 //pacman.dyingPacman(prevPacman.x,prevPacman.y);  //not used for now
-                if(!pacman.isInvincible()) {
+
+                if(pacman.isInvincible()) {
+                    ghost.resetGhost(); //if pacman is invincible, only eat that ghost
+                    ProgressKeeper.eatGhost(); //todo add mechanism for multiple ghosts
+                }
+                else{
+                    for (Ghost g:ghosts) {
+                        g.resetGhost();  //put ghost back in starting position
+                    }
+
                     System.err.println("dead");
                     batcher.draw(dyingPac, pacman.getX(), pacman.getY());
                     pacman.resetPacman();
                     pacman.setDead(true);
+
+                    ProgressKeeper.loseALife();
+
                 }
             }
         }

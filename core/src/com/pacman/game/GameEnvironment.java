@@ -10,8 +10,6 @@ import com.pacman.gameObjects.*;
 public class GameEnvironment {
     private Pacman pacman;
     private Map map;
-    //private RedGhost redGhost;
-
     private Ghost[] ghosts;
 
 
@@ -48,4 +46,5 @@ public class GameEnvironment {
     }
 
     public Ghost[] getGhosts() { return ghosts; }
+
 }

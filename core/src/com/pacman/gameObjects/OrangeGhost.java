@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class OrangeGhost extends Ghost
 {
-    final static int startingX = 76;
-    final static int startingY = 100;
+    final static int startingX = 60;
+    final static int startingY = 95;
     public OrangeGhost(Animation<TextureRegion> animation) {
         super(startingX, startingY, animation);
     }

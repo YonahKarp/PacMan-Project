@@ -3,6 +3,7 @@ package com.pacman.gameObjects;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
+import com.pacman.Services.ProgressKeeper;
 
 /**
  * Created by YonahKarp on 3/6/17.
@@ -11,7 +12,7 @@ public class Pacman extends Player
 {
 
     private boolean isDead = false;
-    private boolean _isInvincible = false;
+    private int _isInvincible = 0;
     private char currentDirection = ' ';
     private int speed = 40;
     private Rectangle playerRect;  //to encapsulate pacman for collision detection
@@ -106,21 +107,22 @@ public class Pacman extends Player
     }
 
     public void setInvincibleTrue() {
-        _isInvincible = true;
+        _isInvincible += 1;
 
         //after 10000 seconds we set invincible false
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        _isInvincible = false;
+                        _isInvincible -= 1;
+                        ProgressKeeper.resetGhostsEaten();
                         this.cancel();
                     }
                 }, 10000);
     }
 
     public boolean isInvincible() {
-        return _isInvincible;
+        return _isInvincible > 0;
     }
 
     public char getDirection(){return currentDirection;}

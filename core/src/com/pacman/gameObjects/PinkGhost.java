@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 public class PinkGhost extends Ghost
 {
     final static int startingX = 72;
-    final static int startingY = 100;
+    final static int startingY = 95;
     public PinkGhost (Animation<TextureRegion> animation) {
         super(startingX, startingY, animation);
     }
