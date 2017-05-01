@@ -86,7 +86,6 @@ public class Player {
                 }
             case ' ':
                 //for debugging:
-                //System.err.println(newDirection+": x:"+mapX+" y:"+mapY+" clear");
                 return true;
             case '&':  //dont allow back into ghosthouse
                 return newDirection == 'u';
@@ -97,8 +96,6 @@ public class Player {
             case '<':  //send out of ghost house
                 return !(newDirection == 'r' || newDirection == 'd');
             default:
-                //for debugging:
-                //System.err.println(newDirection+": x:"+mapX+" y:"+mapY+" blocked");
                 return false;
         }
     }

@@ -14,10 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.pacman.Services.AssetLoader;
 import com.pacman.Services.ProgressKeeper;
-import com.pacman.gameObjects.Ghost;
-import com.pacman.gameObjects.Map;
-import com.pacman.gameObjects.Pacman;
-import com.pacman.gameObjects.PowerPellet;
+import com.pacman.gameObjects.*;
 import com.pacman.screens.PacmanGameScreen;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
@@ -135,6 +132,8 @@ public class GameRenderer {
                 else{
                     for (Ghost g:ghosts) {
                         g.resetGhost();  //put ghost back in starting position
+                        if(g instanceof RedGhost)
+                            g.setRestTimer(0);
                     }
 
                     System.err.println("dead");

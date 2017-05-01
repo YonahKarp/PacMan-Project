@@ -17,7 +17,7 @@ import java.util.Random;
 public class Ghost extends Player {
     private Random rand = new Random();
     private Rectangle ghostRect;  //encapsulate ghost in rectangle for collision detection
-    private Animation<TextureRegion> animation; //todo split ghosts into different classes with different AIs
+    private Animation<TextureRegion> animation;
     private Animation<TextureRegion> edibleAnimation = AssetLoader.edibleGhost;
 
     private int currMove = 3; //start by moving up
@@ -43,13 +43,12 @@ public class Ghost extends Player {
 
     public void update(float delta, Pacman pacman) {
 
-        if (restTimer > 0){
+        if (restTimer > 0){ //ghost rests after being eaten
             restTimer -= delta;
             return;
         }
 
-        //for debugging:
-        //System.err.println("----"+this.getX()+" "+this.getY());
+        //fixme: what does this part do? the x here is the ghost's xCoord, not pacman's.
         if(x < 0.8 && direction!='r') //ensure pacman didnt just come through the tunnel
         {
             x= 142;
@@ -59,53 +58,56 @@ public class Ghost extends Player {
             x = 0;
             return;
         }
+
+
         Vector2 ghostCoord = this.getCoord();
         Vector2 target = getTarget(pacman);
-        //For debugging
-        // System.err.println(speed*delta+" pacman:"+pacman.getCoord()+" ghost:"+ghostCoord +" target:"+target);
+
         Vector2 temp, temp2 = this.getCoord();
+
         float closestPath = Integer.MAX_VALUE;
-        if (pathIsClear('u') && currentDirection != 'd')  //ghostCoordst isnt allowed to reverse direction
-        {
+
+        int shouldRunMultiplier = (pacman.isInvincible())? -1 : 1;
+
+
+        if (pathIsClear('u') && currentDirection != 'd'){  //ghostCoordst isnt allowed to reverse direction
+
             temp = ghostCoord.cpy();
             temp = temp.add(0.0f, (-speed * delta));  //set temp vector to the position to test
             float distance = temp.dst2(target);  //check distance from that spot to pacman
-            if (distance < closestPath) {
+            if (distance*shouldRunMultiplier < closestPath) {
                 temp2 = temp;
-                closestPath = distance;
+                closestPath = distance*shouldRunMultiplier;
                 preDirection = 'u';  //keep track of previous direction
             }
-            //for debugging:
-            //System.err.println("u"+temp2.x+" "+temp2.y+" "+temp.dst(pacman.getCoord()));
         }
+
         if (pathIsClear('l') && currentDirection != 'r') {
             temp = ghostCoord.cpy();
             temp = temp.add((-speed * delta), 0.0f);
             float distance = temp.dst2(target);
-            if (distance < closestPath) {
+            if (distance*shouldRunMultiplier < closestPath) {
                 temp2 = temp;
-                closestPath = distance;
+                closestPath = distance*shouldRunMultiplier;
                 preDirection = 'l';
             }
-            //System.err.println("l"+temp2.x+" "+temp2.y+" "+temp.dst(pacman.getCoord()));
         }
         if (pathIsClear('d') && currentDirection != 'u') {
             temp = ghostCoord.cpy();
             temp = temp.add(0.0f, (speed * delta));
             float distance = temp.dst2(target);
-            if (distance < closestPath) {
+            if (distance*shouldRunMultiplier < closestPath) {
                 temp2 = temp;
-                closestPath = distance;
+                closestPath = distance*shouldRunMultiplier;
                 preDirection = 'd';
             }
-            //System.err.println("d"+temp2.x+" "+temp2.y+" "+temp.dst(pacman.getCoord()));
         }
 
         if (pathIsClear('r') && currentDirection != 'l') {
             temp = ghostCoord.cpy();
             temp = temp.add(speed * delta, 0.0f);
             float distance = temp.dst2(target);
-            if (distance < closestPath) {
+            if (distance*shouldRunMultiplier < closestPath) {
                 temp2 = temp;
                 closestPath = distance;
                 preDirection = 'r';
@@ -120,36 +122,6 @@ public class Ghost extends Player {
         System.err.println(temp2.x+" "+temp2.y+" pac: "+pacman.getX()+","+pacman.getY());
     }
 
-
- /*   public void update(float delta, Pacman pacman) {
-        switch(currMove){
-            case 0:
-                if (pathIsClear('r')) {
-                    x += speed * delta;
-                    return;
-                }
-                break;
-            case 1:
-                if(pathIsClear('l')) {
-                    x -= speed * delta;
-                    return;
-                }
-                break;
-            case 2:
-                if (pathIsClear('d')) {
-                    y += speed * delta;
-                    return;
-                }
-                break;
-            case 3:
-                if(pathIsClear('u')) {
-                    y -= speed * delta;
-                    return;
-                }
-        }
-        //if path was blocked, choose new direction
-        currMove = rand.nextInt(4);
-    }*/
     public float getX()
     {
         return x;
@@ -170,8 +142,7 @@ public class Ghost extends Player {
 
     public void resetGhost(){}
 
-    public void resetGhost(int x, int y)
-    {
+    public void resetGhost(int x, int y) {
         currentDirection = 'e';
         this.x = x;
         this.y = y;
@@ -184,5 +155,9 @@ public class Ghost extends Player {
 
     public Animation<TextureRegion> getEdibleAnimation() {
         return edibleAnimation;
+    }
+
+    public void setRestTimer(double restTimer) {
+        this.restTimer = restTimer;
     }
 }
