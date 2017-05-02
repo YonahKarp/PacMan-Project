@@ -4,22 +4,38 @@ package com.pacman.Services;
  * Created by YonahKarp on 3/27/17.
  */
 public class SoundService {
-    private static boolean nomnomIsPlaying = false;
+    private static boolean kaIsPlaying, sirenIsPlaying = false;
+
     private static boolean introIsPlaying = false;
     private static boolean introHasPlayed = false;
 
 
-    public static void setNomnomIsPlaying(){
-        nomnomIsPlaying = true;
-        AssetLoader.nomnom.play();
+
+    public static void setSirenIsPlaying(){ //replaces nomnom
+        sirenIsPlaying = true;
+        AssetLoader.siren.play();
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        nomnomIsPlaying = false;
+                        sirenIsPlaying = false;
                         this.cancel();
                     }
-                }, 500);
+                }, 10350);
+    }
+
+
+    public static void setKaIsPlaying(){ //replaces nomnom
+        kaIsPlaying = true;
+        AssetLoader.ka.play();
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        kaIsPlaying = false;
+                        this.cancel();
+                    }
+                }, 200);
     }
 
     public static void setIntroIsPlaying(){
@@ -36,9 +52,9 @@ public class SoundService {
                 }, 4000);
     }
 
-    public static boolean getNomnomIsPlaying() {
-        return nomnomIsPlaying;
-    }
+    public static boolean getSirenIsPlaying(){ return sirenIsPlaying; }
+
+    public static boolean getKaIsPlaying(){ return kaIsPlaying; }
 
     public static boolean getIntroIsPlaying() {
         return introIsPlaying;

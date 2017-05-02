@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class RedGhost extends Ghost {
 
-    final static int startingX = 72;
+    final static int startingX = 70;
     final static int startingY = 90;
     public RedGhost(Animation<TextureRegion> animation) {
         super(startingX, startingY, animation);

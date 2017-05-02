@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class PinkGhost extends Ghost
 {
-    final static int startingX = 72;
+    final static int startingX = 70;
     final static int startingY = 95;
     public PinkGhost (Animation<TextureRegion> animation) {
         super(startingX, startingY, animation);
@@ -22,8 +22,8 @@ public class PinkGhost extends Ghost
         Vector2 pacCoord = pacman.getCoord();
         float pacX = pacCoord.x;
         float pacY = pacCoord.y;
-        currentDirection = pacman.getDirection();
-        switch (currentDirection) {
+        //currentDirection = pacman.direction;
+        switch (pacman.direction) {
             case 'u':
                 target.set(pacX, (pacY+32));
                 break;

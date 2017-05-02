@@ -25,7 +25,7 @@ public class BlueGhost extends Ghost
         float pacX = pacCoord.x;
         float pacY = pacCoord.y;
 
-        char pacDirection = pacman.getDirection();
+        char pacDirection = pacman.direction;
         switch (pacDirection) {
             case 'u':
                 temp.x = pacX;

@@ -4,6 +4,8 @@ import com.pacman.Services.AssetLoader;
 import com.pacman.Services.ProgressKeeper;
 import com.pacman.Services.SoundService;
 
+import java.math.BigDecimal;
+
 import static com.pacman.Services.AssetLoader.redGhost;
 
 /**
@@ -15,6 +17,8 @@ public class Player {
     Vector2 playerLocation;
     float rotation;
     char direction = ' ';
+
+    float boxSize = 5.35f;
 
 
 
@@ -57,6 +61,8 @@ public class Player {
 
         float vertOffset =21.4f;
 
+
+
         int charRows = 28;
 
         double adjustX = (newDirection == 'l')? -0.65 :
@@ -65,8 +71,10 @@ public class Player {
         double adjustY = (newDirection == 'u')? -0.65 :
                 (newDirection == 'd')? 0.65 : 0 ;
 
+
         int mapX = (int)Math.round(x/boxSize + adjustX);
         int mapY = (int)(charRows*Math.round((y - vertOffset)/boxSize + adjustY));
+
 
         switch (Map.currMap.charAt(mapX+mapY)) {
             case 'o':
@@ -78,15 +86,23 @@ public class Player {
             case '.':
                 if(this instanceof Pacman) {
                     Map.currMap.setCharAt(mapX + mapY, ' ');
-                    if(!SoundService.getNomnomIsPlaying())
-                        SoundService.setNomnomIsPlaying();
+
+                    if(!SoundService.getKaIsPlaying())
+                        SoundService.setKaIsPlaying();
+                    else
+                        AssetLoader.wa.play();
 
                     Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
                     ProgressKeeper.addToScore(10);
                 }
             case ' ':
-                //for debugging:
-                return true;
+
+                //keep pacman / ghosts in middle
+                if(newDirection == 'l' || newDirection == 'r')
+                    return y*100 % 535f < 85 || y*100 % 535f > 450; //modulo doesn't work well with decimal numbers, so multiplying out decimals solves issue
+                else
+                    return x*100 % 535f < 85|| x*100 % 535f > 450;
+
             case '&':  //dont allow back into ghosthouse
                 return newDirection == 'u';
             case '!':  //send out of ghost house

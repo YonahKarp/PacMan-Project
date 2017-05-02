@@ -15,7 +15,7 @@ public class GameEnvironment {
 
     public GameEnvironment(){
         map = new Map();
-        pacman = new Pacman(72,144f,0); //we pass the map for collision detection
+        pacman = new Pacman(72,144.45f,0);
         RedGhost redGhost = new RedGhost(AssetLoader.redGhost);
         ghosts = new Ghost[]{
                 redGhost,
@@ -29,6 +29,7 @@ public class GameEnvironment {
 
     public void update(float delta) {
         pacman.update(delta);
+
         for (Ghost ghost: ghosts) {
             ghost.update(delta, pacman);
         }

@@ -13,7 +13,7 @@ public class Pacman extends Player
 
     private boolean isDead = false;
     private int _isInvincible = 0;
-    private char currentDirection = ' ';
+    private char queuedDirection = ' ';
     private int speed = 40;
     private Rectangle playerRect;  //to encapsulate pacman for collision detection
 
@@ -21,13 +21,17 @@ public class Pacman extends Player
 
     public Pacman(float x, float y, float rotation){
         super(x,y,rotation);
-        playerRect= new Rectangle(x,y,7,7);
+        playerRect= new Rectangle(x - (boxSize/2f),y + (boxSize/2f),boxSize,boxSize);
     }
 
     public void update(float delta) {
         //continue along his way
 
-        //prevent pacman from going out of screen view (moved to pathIsClear method)
+        //added for easier input
+        if(queuedDirection != ' ' && pathIsClear(queuedDirection)){
+            move(queuedDirection);
+            queuedDirection = ' ';
+        }
 
         switch (direction){
             case 'l':
@@ -52,44 +56,48 @@ public class Pacman extends Player
     }
 
     public void move(char direction) {
-        //System.err.println("pac "+getRect().getX()+" "+getRect().getY());
-        currentDirection = direction;
+        queuedDirection = ' ';
+
         switch (direction) {
             case 'l':
                 if (pathIsClear('l')) { //prevent direction change if blocked (like classic game)
                     this.direction = direction;
 
-                    y = 5.35f*(Math.round(y/5.35)); //todo fix arbitraries
+                    //y = boxSize*(Math.round(y/5.35)); //todo fix arbitraries
                     rotation = 180;
-                }
+                }else
+                    queuedDirection = 'l';
                 break;
             case 'u':
                 if (pathIsClear('u')) {
                     this.direction = direction;
-                    x = 5.35f*(Math.round(x/5.35)); //adjust pacman so he's in middle (should find out a way to get rid of arbitrary number )
+                    //x = boxSize*(Math.round(x/5.35)); //adjust pacman so he's in middle (should find out a way to get rid of arbitrary number )
                     rotation = 270;
-                }
+                }else
+                    queuedDirection = 'u';
                 break;
             case 'r':
                 if (pathIsClear('r')) {
                     this.direction = direction;
-                    y = 5.35f*(Math.round(y/5.35)); //todo fix arbitraries
+                   // y = boxSize*(Math.round(y/5.35)); //todo fix arbitraries
                     rotation = 0;
-                }
+                }else
+                    queuedDirection = 'r';
                 break;
             case 'd':
                 if (pathIsClear('d')) {
                     this.direction = direction;
-                    x = 5.35f*(Math.round(x/5.35));
+                    //x = boxSize*(Math.round(x/5.35));
                     rotation = 90;
-                }
+                }else
+                    queuedDirection = 'd';
                 break;
         }
     }
 
     public void resetPacman() {
         x=75;
-        y=144;
+        y=144.45f;
         direction = ' ';
     }
 
@@ -124,8 +132,6 @@ public class Pacman extends Player
     public boolean isInvincible() {
         return _isInvincible > 0;
     }
-
-    public char getDirection(){return currentDirection;}
 
     //get rectangle to check if intersects with ghost's rectangle
     public Rectangle getRect()

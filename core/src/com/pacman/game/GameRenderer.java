@@ -68,7 +68,7 @@ public class GameRenderer {
         score.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); //fix blur
         score.setUseIntegerPositions(false); //fix kerning (space btw letters)
         score.getData().setScale(.3f, -.3f);
-        score.draw(batcher, "score: " + ProgressKeeper.getScore() + " Lives: " + ProgressKeeper.getLives() + " \n HighScore: " + ProgressKeeper.getHighScore(), 20, 0);
+        score.draw(batcher, ProgressKeeper.progressString(), 20, 0);
 
 
 
@@ -94,10 +94,10 @@ public class GameRenderer {
                 currentFrame,
                 pacman.getX(), //x position
                 pacman.getY(), //y position
-                3.5f, // x origin
-                3.5f, // y origin
-                7f, //width
-                7f, //height
+                boxsize / 2f, //3.5f, // x origin
+                boxsize / 2f, //3.5f, // y origin
+                boxsize, //7f, //width
+                boxsize, // 7f height
                 1f, //x scale
                 1f, // y scale
                 pacman.getRotation() //rotation
@@ -109,10 +109,10 @@ public class GameRenderer {
                     (!pacman.isInvincible())? ghost.getAnimation().getKeyFrame(runTime, true) : ghost.getEdibleAnimation().getKeyFrame(runTime, true),
                     ghost.getX(),
                     ghost.getY(),
-                    3.5f,
-                    3.5f,
-                    7f,
-                    7f,
+                    boxsize / 2f, //3.5f,
+                    boxsize / 2f, //3.5f,
+                    boxsize, //7f,
+                    boxsize, //7f,
                     1f,
                     1f,
                     0

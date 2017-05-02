@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.pacman.Services.AssetLoader;
+import com.pacman.Services.SoundService;
 import org.omg.CORBA.Environment;
 
 import java.util.Date;
@@ -29,7 +30,8 @@ public class Ghost extends Player {
     {
         super(x,y,0);
         this.animation = animation;
-        ghostRect = new Rectangle(x,y,7,7); //to encapsulate ghost for collision detection
+        ghostRect = new Rectangle(x- (boxSize /2f),y + (boxSize /2f),boxSize ,boxSize ); //to encapsulate ghost for collision detection
+
     }
 
     public Vector2 getTarget(Pacman pacman)
@@ -47,6 +49,11 @@ public class Ghost extends Player {
             restTimer -= delta;
             return;
         }
+
+        if(!SoundService.getSirenIsPlaying())
+            SoundService.setSirenIsPlaying();
+
+
 
         //fixme: what does this part do? the x here is the ghost's xCoord, not pacman's.
         if(x < 0.8 && direction!='r') //ensure pacman didnt just come through the tunnel
@@ -70,14 +77,22 @@ public class Ghost extends Player {
         int shouldRunMultiplier = (pacman.isInvincible())? -1 : 1;
 
 
-        if (pathIsClear('u') && currentDirection != 'd'){  //ghostCoordst isnt allowed to reverse direction
+//        boolean atTurningPoint;
+//        if(currentDirection == 'l' || currentDirection == 'r')
+//            atTurningPoint = y*100 % 535f < 85 || y*100 % 535f > 450; //modulo doesn't work well with decimal numbers, so multiplying out decimals solves issue
+//        else
+//            atTurningPoint = x*100 % 535f < 85|| x*100 % 535f > 450;
+//
+//        if (atTurningPoint) {
+
+        if (pathIsClear('u') && currentDirection != 'd') {  //ghostCoordst isnt allowed to reverse direction
 
             temp = ghostCoord.cpy();
             temp = temp.add(0.0f, (-speed * delta));  //set temp vector to the position to test
             float distance = temp.dst2(target);  //check distance from that spot to pacman
-            if (distance*shouldRunMultiplier < closestPath) {
+            if (distance * shouldRunMultiplier < closestPath) {
                 temp2 = temp;
-                closestPath = distance*shouldRunMultiplier;
+                closestPath = distance * shouldRunMultiplier;
                 preDirection = 'u';  //keep track of previous direction
             }
         }
@@ -86,9 +101,9 @@ public class Ghost extends Player {
             temp = ghostCoord.cpy();
             temp = temp.add((-speed * delta), 0.0f);
             float distance = temp.dst2(target);
-            if (distance*shouldRunMultiplier < closestPath) {
+            if (distance * shouldRunMultiplier < closestPath) {
                 temp2 = temp;
-                closestPath = distance*shouldRunMultiplier;
+                closestPath = distance * shouldRunMultiplier;
                 preDirection = 'l';
             }
         }
@@ -96,9 +111,9 @@ public class Ghost extends Player {
             temp = ghostCoord.cpy();
             temp = temp.add(0.0f, (speed * delta));
             float distance = temp.dst2(target);
-            if (distance*shouldRunMultiplier < closestPath) {
+            if (distance * shouldRunMultiplier < closestPath) {
                 temp2 = temp;
-                closestPath = distance*shouldRunMultiplier;
+                closestPath = distance * shouldRunMultiplier;
                 preDirection = 'd';
             }
         }
@@ -107,19 +122,29 @@ public class Ghost extends Player {
             temp = ghostCoord.cpy();
             temp = temp.add(speed * delta, 0.0f);
             float distance = temp.dst2(target);
-            if (distance*shouldRunMultiplier < closestPath) {
+            if (distance * shouldRunMultiplier < closestPath) {
                 temp2 = temp;
                 closestPath = distance;
                 preDirection = 'r';
             }
-            //System.err.println("r"+temp2.x+" "+temp2.y+" "+temp.dst(pacman.getCoord()));
+        }
+
+
+        if((currentDirection == 'r' || currentDirection == 'l') && (preDirection == 'u' || preDirection == 'd')){
+            x = boxSize *(Math.round(temp2.x/boxSize ));
+            y = temp2.y;
+        }
+        else if((currentDirection == 'u' || currentDirection == 'd') && (preDirection == 'r' || preDirection == 'l')){
+            x = temp2.x;
+            y = boxSize *(Math.round(temp2.y/boxSize ));
+        }else {
+            x = temp2.x;
+            y = temp2.y;
         }
 
         currentDirection = preDirection;
-        x = temp2.x;
-        y = temp2.y;
-        //for debugging:
-        System.err.println(temp2.x+" "+temp2.y+" pac: "+pacman.getX()+","+pacman.getY());
+
+        //System.err.println(temp2.x+" "+temp2.y+" pac: "+pacman.getX()+","+pacman.getY());
     }
 
     public float getX()
@@ -144,6 +169,7 @@ public class Ghost extends Player {
 
     public void resetGhost(int x, int y) {
         currentDirection = 'e';
+
         this.x = x;
         this.y = y;
         restTimer = 5;

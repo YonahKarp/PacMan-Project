@@ -63,4 +63,15 @@ public class ProgressKeeper {
     public static int getHighScore() {
         return highScore;
     }
+
+    public static String progressString(){
+        String tmpLives ="";
+
+        for (int i = 0; i < lives; i++) {
+            tmpLives += "@";
+        }
+
+        return "score: " + score + " Lives: " + tmpLives + " \n HighScore: " + highScore;
+
+    }
 }
