@@ -54,15 +54,13 @@ public class Ghost extends Player {
             SoundService.setSirenIsPlaying();
 
 
-
-        //fixme: what does this part do? the x here is the ghost's xCoord, not pacman's.
-        if(x < 0.8 && direction!='r') //ensure pacman didnt just come through the tunnel
+        if(x < 0.8 && direction!='r') //ensure ghost didnt just come through the tunnel
         {
             x= 142;
             return;
         }
         if(x > 142 && direction!='l') {
-            x = 0;
+            x = 0.8f;
             return;
         }
 
