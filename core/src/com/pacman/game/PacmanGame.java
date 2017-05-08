@@ -1,8 +1,11 @@
 package com.pacman.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.pacman.Services.AssetLoader;
 import com.pacman.screens.PacmanGameScreen;
+import com.pacman.screens.SplashScreen;
 
 /**
  * Created by YonahKarp on 2/22/17.
@@ -14,16 +17,31 @@ import com.pacman.screens.PacmanGameScreen;
  */
 
 public class PacmanGame extends Game {
+
+    private PacmanGameScreen gameScreen;
+    public SpriteBatch batch;
+    public BitmapFont font;
+
     @Override
     public void create() {
+        batch = new SpriteBatch();
+        font = new BitmapFont();
         AssetLoader.load();
-        setScreen(new PacmanGameScreen());
+        setScreen(new SplashScreen(this));
 
         System.err.println("game created! We're all done here");
     }
 
     @Override
+    public void render()
+    {
+        super.render();
+    }
+
+    @Override
     public void dispose(){
+        batch.dispose();
+        font.dispose();
         AssetLoader.dispose();
     }
 }

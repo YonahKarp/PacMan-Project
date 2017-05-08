@@ -31,8 +31,6 @@ public class GameRenderer {
     private float nonLoopingRuntime = 0;
     private float prevRuntime = 0;
 
-
-
     public GameRenderer(GameEnvironment environment) {
         this.environment = environment;
 
@@ -63,7 +61,7 @@ public class GameRenderer {
 
         TextureRegion currentFrame;
         if(!pacman.isDead())
-            currentFrame =AssetLoader.pacmAnimation.getKeyFrame(runTime, true);
+            currentFrame = AssetLoader.pacmAnimation.getKeyFrame(runTime, true);
         else {
             nonLoopingRuntime += (runTime - prevRuntime); //delta
             prevRuntime = runTime;
@@ -162,5 +160,10 @@ public class GameRenderer {
         }
         batcher.end();
 
+    }
+
+    public void dispose()
+    {
+        this.batcher.dispose();
     }
 }

@@ -5,10 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.pacman.Services.AssetLoader;
+import com.pacman.Services.ProgressKeeper;
 import com.pacman.Services.SoundService;
 import com.pacman.game.GameRenderer;
 import com.pacman.game.GameEnvironment;
 import com.pacman.Services.InputHandler;
+import com.pacman.game.PacmanGame;
 
 
 /**
@@ -16,13 +18,15 @@ import com.pacman.Services.InputHandler;
  * The screen seems to be where where all the real magic happens
  */
 public class PacmanGameScreen implements Screen {
+    private PacmanGame game;
     private GameEnvironment environment;
     private GameRenderer renderer;
 
     private float runtime = 0;
 
 
-    public PacmanGameScreen(){
+    public PacmanGameScreen(PacmanGame game){
+        this.game = game;
         environment = new GameEnvironment();
         renderer = new GameRenderer(environment);
 
@@ -45,11 +49,14 @@ public class PacmanGameScreen implements Screen {
     @Override
     public void render(float delta) {
 
+        if (ProgressKeeper.getLives() <= 0) {
+            this.game.setScreen(new SplashScreen(this.game));
+            this.dispose();
+        }
+
         runtime += delta;
         environment.update(delta);
         renderer.render(runtime);
-
-
     }
 
     @Override
