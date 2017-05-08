@@ -49,8 +49,9 @@ public class PacmanGameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        if (ProgressKeeper.getLives() <= 0) {
+        if (ProgressKeeper.getLives() < 0) {
             this.game.setScreen(new SplashScreen(this.game));
+            ProgressKeeper.resetData();
             this.dispose();
         }
 

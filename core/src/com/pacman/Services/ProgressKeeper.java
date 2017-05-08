@@ -24,8 +24,10 @@ public class ProgressKeeper {
             highScore = score;
 
 
-        if (!extraLifeGiven && score > 10000)
+        if (!extraLifeGiven && score > 10000) {
             lives += 1;
+            extraLifeGiven = true;
+        }
     }
 
     public static void eatGhost(){
@@ -45,7 +47,6 @@ public class ProgressKeeper {
     public static void loseALife(){
         lives -= 1;
         if (lives < 0) {
-            resetData();
             Map.resetMap();
         }
     }
