@@ -46,7 +46,6 @@ public class GameRenderer {
 
     }
 
-
     public void render(float runTime) {
 
         Pacman pacman = environment.getPacman();
@@ -75,10 +74,10 @@ public class GameRenderer {
         }
 
 
-        BitmapFont score = new BitmapFont();
+        BitmapFont score = AssetLoader.gameFont;
         score.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); //fix blur
         score.setUseIntegerPositions(false); //fix kerning (space btw letters)
-        score.getData().setScale(.3f, -.3f);
+        score.getData().setScale(.1f, -.1f);
         score.draw(batcher, ProgressKeeper.progressString(), 20, 0);
 
 
