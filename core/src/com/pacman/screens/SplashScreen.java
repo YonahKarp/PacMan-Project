@@ -1,10 +1,10 @@
 package com.pacman.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.pacman.Services.AssetLoader;
 import com.pacman.game.PacmanGame;
 
 /**
@@ -37,8 +37,10 @@ public class SplashScreen implements Screen
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to Pacman!!! ", 100, 150);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
+        AssetLoader.gameFont.getData().setScale(0.5f);
+        AssetLoader.gameFont.draw(game.batch, "Welcome to Pacman!!! ", 100, 400);
+        AssetLoader.gameFont.draw(game.batch, "Tap anywhere to begin!", 100, 350);
+        game.batch.draw(AssetLoader.bigPacman, 100, 440);
         game.batch.end();
 
         if (Gdx.input.isTouched()) {

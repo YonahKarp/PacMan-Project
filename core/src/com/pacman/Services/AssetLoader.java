@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -14,12 +15,14 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
+    public static BitmapFont gameFont;
+
     public static Texture pacmanSheet, hillarySheet, mazeSheet, ghostSheet;
 
     public static Animation<TextureRegion> pacmAnimation, dyingPacmAnimation, powerPellet;
     public static Animation<TextureRegion> redGhost, blueGhost, pinkGhost, orangeGhost, edibleGhost ;
 
-    public static TextureRegion pacOpen, pacMid, pacClosed;
+    public static TextureRegion pacOpen, pacMid, pacClosed, bigPacman;
     public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, edibleGhostImages, powerPelletImages;
     public static TextureRegion[][] mazeTiles;
 
@@ -27,6 +30,10 @@ public class AssetLoader {
 
     public static void load() {
 
+        /**
+         * Fonts
+         */
+        gameFont = new BitmapFont(Gdx.files.internal("img/gameFont.fnt"));
 
         /**
          * Images
@@ -44,6 +51,7 @@ public class AssetLoader {
         pacmAnimation = new Animation<TextureRegion>(0.1f, pacMan);
         pacmAnimation.setPlayMode(Animation.PlayMode.NORMAL); //nom nom nom
 
+        bigPacman = new TextureRegion(pacmanSheet, 32, 16, 32, 32);
 
         //uncomment for hillary version
         /*
