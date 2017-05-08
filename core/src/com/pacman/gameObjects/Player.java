@@ -44,6 +44,10 @@ public class Player {
         return rotation;
     }
 
+    public void setRotation(float rotation) {
+        this.rotation = rotation;
+    }
+
     public boolean pathIsClear(char newDirection) {
 
      //tunneling

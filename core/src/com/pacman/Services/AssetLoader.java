@@ -14,9 +14,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture pacmanSheet, mazeSheet, ghostSheet;
+    public static Texture pacmanSheet, hillarySheet, mazeSheet, ghostSheet;
 
-    public static Animation<TextureRegion> pacmAnimation, getDyingPacmAnimation, dyingPacmAnimation, powerPellet;
+    public static Animation<TextureRegion> pacmAnimation, dyingPacmAnimation, powerPellet;
     public static Animation<TextureRegion> redGhost, blueGhost, pinkGhost, orangeGhost, edibleGhost ;
 
     public static TextureRegion pacOpen, pacMid, pacClosed;
@@ -43,6 +43,22 @@ public class AssetLoader {
         TextureRegion[] pacMan = { pacOpen, pacMid, pacClosed };
         pacmAnimation = new Animation<TextureRegion>(0.1f, pacMan);
         pacmAnimation.setPlayMode(Animation.PlayMode.NORMAL); //nom nom nom
+
+
+        //uncomment for hillary version
+        /*
+        hillarySheet = new Texture(Gdx.files.internal("img/hillarySheet.png"));
+        hillarySheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
+
+        TextureRegion[] hillary = {
+                new TextureRegion(hillarySheet, 30, 10, 130, 130),
+                new TextureRegion(hillarySheet, 190, 10, 130, 130),
+                new TextureRegion(hillarySheet, 350, 10, 130, 130) };
+
+
+        /// /pacmAnimation = new Animation<TextureRegion>(0.1f, hillary);
+        //pacmAnimation.setPlayMode(Animation.PlayMode.NORMAL); //nom nom nom
+        */
 
 
 
@@ -109,6 +125,9 @@ public class AssetLoader {
          */
         mazeSheet = new Texture(Gdx.files.internal("img/mazeSheet3.png"));
 
+        //hillary version
+        //mazeSheet = new Texture(Gdx.files.internal("img/mazeHillary3.png"))
+
 
         final int FRAME_COLS = 13, FRAME_ROWS = 3;
         mazeTiles = TextureRegion.split(mazeSheet, 8, 8);
@@ -131,15 +150,6 @@ public class AssetLoader {
         siren = Gdx.audio.newSound(Gdx.files.internal("audio/Siren1.ogg"));
         ka = Gdx.audio.newSound(Gdx.files.internal("audio/ka.ogg"));
         wa = Gdx.audio.newSound(Gdx.files.internal("audio/wa.ogg"));
-
-
-
-
-
-
-
-
-
 
     }
 

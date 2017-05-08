@@ -28,12 +28,6 @@ public class PacmanGameScreen implements Screen {
 
         //todo play introMusic while paused with screen behind
         SoundService.setIntroIsPlaying();
-        /*
-        while(SoundService.getIntroIsPlaying()){
-            try {Thread.sleep(200);}
-            catch (InterruptedException e) {}
-        }*/
-
 
         Gdx.input.setInputProcessor(new InputHandler(this.environment.getPacman(), this.environment.getMap()));
 
@@ -45,12 +39,11 @@ public class PacmanGameScreen implements Screen {
         System.err.println("show called");
     }
 
+    /**
+     * Every frame: we update, then render
+     */
     @Override
     public void render(float delta) {
-
-        /**
-         * Every frame: we update, then render
-         */
 
         runtime += delta;
         environment.update(delta);

@@ -23,18 +23,15 @@ public class GameEnvironment {
                 new PinkGhost(AssetLoader.pinkGhost),
                 new OrangeGhost(AssetLoader.orangeGhost)
         };
-
     }
 
 
     public void update(float delta) {
         pacman.update(delta);
 
-        for (Ghost ghost: ghosts) {
-            ghost.update(delta, pacman);
-        }
-
-
+        if (!pacman.isDead())
+            for (Ghost ghost: ghosts)
+                ghost.update(delta, pacman);
     }
 
 

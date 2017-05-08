@@ -1,11 +1,8 @@
 package com.pacman.game;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -30,6 +27,10 @@ public class GameRenderer {
 
     private SpriteBatch batcher;
 
+    //used for death
+    private float nonLoopingRuntime = 0;
+    private float prevRuntime = 0;
+
 
 
     public GameRenderer(GameEnvironment environment) {
@@ -49,7 +50,6 @@ public class GameRenderer {
 
 
     public void render(float runTime) {
-        //System.err.println("renderer called");
 
         Pacman pacman = environment.getPacman();
         Map map = environment.getMap();
@@ -61,8 +61,21 @@ public class GameRenderer {
         batcher.begin();
         batcher.enableBlending();
 
-        TextureRegion currentFrame = AssetLoader.pacmAnimation.getKeyFrame(runTime, true);
-        TextureRegion dyingPac = AssetLoader.dyingPacmAnimation.getKeyFrame(runTime, false);
+        TextureRegion currentFrame;
+        if(!pacman.isDead())
+            currentFrame =AssetLoader.pacmAnimation.getKeyFrame(runTime, true);
+        else {
+            nonLoopingRuntime += (runTime - prevRuntime); //delta
+            prevRuntime = runTime;
+
+            Animation<TextureRegion> animation = AssetLoader.dyingPacmAnimation;
+            currentFrame = animation.getKeyFrame(nonLoopingRuntime, false);
+            if (animation.isAnimationFinished(nonLoopingRuntime)) {
+                pacman.setDead(false);
+                pacman.resetPacman();
+            }
+        }
+
 
         BitmapFont score = new BitmapFont();
         score.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); //fix blur
@@ -127,19 +140,20 @@ public class GameRenderer {
 
                 if(pacman.isInvincible()) {
                     ghost.resetGhost(); //if pacman is invincible, only eat that ghost
-                    ProgressKeeper.eatGhost(); //todo add mechanism for multiple ghosts
+                    ProgressKeeper.eatGhost();
                 }
                 else{
                     for (Ghost g:ghosts) {
                         g.resetGhost();  //put ghost back in starting position
                         if(g instanceof RedGhost)
-                            g.setRestTimer(0);
+                            g.setRestTimer(0); //red ghost gets no rest timer
                     }
 
-                    System.err.println("dead");
-                    batcher.draw(dyingPac, pacman.getX(), pacman.getY());
-                    pacman.resetPacman();
                     pacman.setDead(true);
+                    pacman.setRotation(0);
+
+                    nonLoopingRuntime = 0;
+                    prevRuntime = runTime;
 
                     ProgressKeeper.loseALife();
 

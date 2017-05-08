@@ -1,8 +1,10 @@
 package com.pacman.gameObjects;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
+import com.pacman.Services.AssetLoader;
 import com.pacman.Services.ProgressKeeper;
 
 /**
@@ -10,8 +12,7 @@ import com.pacman.Services.ProgressKeeper;
  */
 public class Pacman extends Player
 {
-
-    private boolean isDead = false;
+    private boolean _isDead = false;
     private int _isInvincible = 0;
     private char queuedDirection = ' ';
     private int speed = 40;
@@ -26,6 +27,9 @@ public class Pacman extends Player
 
     public void update(float delta) {
         //continue along his way
+        if (_isDead)
+            return;
+
 
         //added for easier input
         if(queuedDirection != ' ' && pathIsClear(queuedDirection)){
@@ -103,15 +107,13 @@ public class Pacman extends Player
 
     public void setDead(boolean status)
     {
-        isDead=status;
+        if (status)
+            AssetLoader.death.play();
+        _isDead=status;
     }
 
-    //not used for now
-    public void dyingPacman(float x, float y)
-    {
-        this.x=x;
-        this.y=y;
-        isDead=true;
+    public boolean isDead(){
+        return _isDead;
     }
 
     public void setInvincibleTrue() {
