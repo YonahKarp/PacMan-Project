@@ -12,6 +12,9 @@ import static com.pacman.Services.AssetLoader.redGhost;
  * Created by YonahKarp on 3/6/17.
  */
 public class Player {
+    Vector2 startPos;
+
+
     float x;
     float y;
     Vector2 playerLocation;
@@ -25,8 +28,16 @@ public class Player {
     public Player(){}
 
     public Player(float x, float y, float rotation){
+
+
         this.x = x;
         this.y = y;
+
+        startPos = new Vector2(x, y);
+
+        //startingX = (int)x;
+        //startingY = (int)y;
+
         this.rotation = rotation;
         playerLocation = new Vector2(x,y);
 
@@ -82,25 +93,8 @@ public class Player {
 
         switch (Map.currMap.charAt(mapX+mapY)) {
             case 'o':
-                if(this instanceof Pacman) {
-                    ((Pacman) (this)).setInvincibleTrue();
-                    AssetLoader.powerPacman.play();
-                    ProgressKeeper.addToScore(50);
-                }
             case '.':
-                if(this instanceof Pacman) {
-                    Map.currMap.setCharAt(mapX + mapY, ' ');
-
-                    if(!SoundService.getKaIsPlaying())
-                        SoundService.setKaIsPlaying();
-                    else
-                        AssetLoader.wa.play();
-
-                    Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
-                    ProgressKeeper.addToScore(10);
-                }
             case ' ':
-
                 //keep pacman / ghosts in middle
                 if(newDirection == 'l' || newDirection == 'r')
                     return y*100 % 535f < 85 || y*100 % 535f > 450; //modulo doesn't work well with decimal numbers, so multiplying out decimals solves issue
@@ -108,9 +102,13 @@ public class Player {
                     return x*100 % 535f < 85|| x*100 % 535f > 450;
 
             case '&':  //dont allow back into ghosthouse
-                return newDirection == 'u';
-            case '!':  //send out of ghost house
-                return !(newDirection == 'l' || newDirection == 'r' || newDirection == 'd');
+
+                //for returning purposes
+//                if (this instanceof  Ghost)
+//                    if(((Ghost)this).isEaten())
+//                        return true;
+
+                return  newDirection == 'u';
             case '>':  //send out of ghost house
                 return !(newDirection == 'l' || newDirection == 'd');
             case '<':  //send out of ghost house

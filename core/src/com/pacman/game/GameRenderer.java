@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.pacman.Services.AssetLoader;
 import com.pacman.Services.ProgressKeeper;
+import com.pacman.Services.SoundService;
 import com.pacman.gameObjects.*;
 import com.pacman.screens.PacmanGameScreen;
 
@@ -26,8 +27,10 @@ public class GameRenderer {
     private OrthographicCamera cam;
 
     private SpriteBatch batcher;
+    private final float boxsize = 5.35f;
 
-    //used for death
+
+    //used for when pacman dies (singular looping of animation)
     private float nonLoopingRuntime = 0;
     private float prevRuntime = 0;
 
@@ -42,15 +45,17 @@ public class GameRenderer {
         batcher = new SpriteBatch();
         batcher.setProjectionMatrix(cam.combined);
 
-
-
     }
 
+    /**
+        Main method of renderer
+     */
     public void render(float runTime) {
 
         Pacman pacman = environment.getPacman();
         Map map = environment.getMap();
         Ghost[] ghosts = environment.getGhosts();
+
         // Fill screen with black, prevents flickering.
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -58,7 +63,29 @@ public class GameRenderer {
         batcher.begin();
         batcher.enableBlending();
 
+        drawScore();
+
+        handleMapCollisions(pacman,ghosts,map);
+
+        drawMap(pacman, ghosts, runTime);
+        drawPacman(pacman, runTime);
+        drawGhosts(ghosts, pacman, runTime);
+
+        batcher.end();
+    }
+
+    private void drawScore(){
+        BitmapFont score = AssetLoader.gameFont;
+        score.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); //fix blur
+        score.setUseIntegerPositions(false); //fix kerning (space btw letters)
+        score.getData().setScale(.1f, -.1f);
+        score.draw(batcher, ProgressKeeper.progressString(), 20, 0);
+    }
+
+    private void drawPacman(Pacman pacman, float runTime){
         TextureRegion currentFrame;
+
+        //see which pacman we are drawing: dead or alive.
         if(!pacman.isDead())
             currentFrame = AssetLoader.pacmAnimation.getKeyFrame(runTime, true);
         else {
@@ -73,33 +100,6 @@ public class GameRenderer {
             }
         }
 
-
-        BitmapFont score = AssetLoader.gameFont;
-        score.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear); //fix blur
-        score.setUseIntegerPositions(false); //fix kerning (space btw letters)
-        score.getData().setScale(.1f, -.1f);
-        score.draw(batcher, ProgressKeeper.progressString(), 20, 0);
-
-
-
-        Vector2 prevPacman = new Vector2(pacman.getX(), pacman.getY());  //save pacmans previous postion if needed
-
-        final int MAP_COLS = 28, MAP_ROWS = 31;
-        final float boxsize = 5.35f;
-        final float vertOffset = 21.4f;
-
-        for (int i = 0; i < MAP_COLS * MAP_ROWS; i++) {
-            
-            batcher.draw(
-                    (!(Map.textureMap[i / 28][i % 28] instanceof PowerPellet))?
-                            Map.textureMap[i / 28][i % 28] : ((PowerPellet)(Map.textureMap[i / 28][i % 28])).getAnimation().getKeyFrame(runTime, true),
-                    (i % 28) * boxsize, //x position
-                    (i / 28) * boxsize + vertOffset, //y position
-                    boxsize,
-                    boxsize
-            );
-        }
-
         batcher.draw(
                 currentFrame,
                 pacman.getX(), //x position
@@ -112,11 +112,40 @@ public class GameRenderer {
                 1f, // y scale
                 pacman.getRotation() //rotation
         );
+    }
 
-        for (Ghost ghost : ghosts) {
+
+    private void drawMap(Pacman pacman, Ghost[] ghosts, float runTime){
+        final int MAP_COLS = 28, MAP_ROWS = 31;
+        final float vertOffset = 21.4f;
+
+        for (int i = 0; i < MAP_COLS * MAP_ROWS; i++) {
 
             batcher.draw(
-                    (!pacman.isInvincible())? ghost.getAnimation().getKeyFrame(runTime, true) : ghost.getEdibleAnimation().getKeyFrame(runTime, true),
+                    (!(Map.textureMap[i / 28][i % 28] instanceof PowerPellet))?
+                            Map.textureMap[i / 28][i % 28] : ((PowerPellet)(Map.textureMap[i / 28][i % 28])).getAnimation().getKeyFrame(runTime, true),
+                    (i % 28) * boxsize, //x position
+                    (i / 28) * boxsize + vertOffset, //y position
+                    boxsize,
+                    boxsize
+            );
+        }
+    }
+
+    public void drawGhosts(Ghost[] ghosts, Pacman pacman,  float runTime){
+        for (Ghost ghost : ghosts) {
+
+            TextureRegion currFrame;
+
+            if (ghost.isEaten())
+                currFrame = AssetLoader.ghostEyes;
+            else if (ghost.isEdible())
+                currFrame = ghost.getEdibleAnimation().getKeyFrame(runTime, true);
+            else
+                currFrame = ghost.getAnimation().getKeyFrame(runTime, true);
+
+            batcher.draw(
+                    currFrame,
                     ghost.getX(),
                     ghost.getY(),
                     boxsize / 2f, //3.5f,
@@ -128,38 +157,72 @@ public class GameRenderer {
                     0
             );
 
-
             //check if pacman collides with ghost
             if (Intersector.overlaps(pacman.getRect(), ghost.getRect())) {
 
-
-                //pacman.dyingPacman(prevPacman.x,prevPacman.y);  //not used for now
-
-                if(pacman.isInvincible()) {
+                if(ghost.isEdible()) {
+                    ghost.setEdibleFalse();
+                    //ghost.setIsEaten(true);
                     ghost.resetGhost(); //if pacman is invincible, only eat that ghost
                     ProgressKeeper.eatGhost();
                 }
                 else{
-                    for (Ghost g:ghosts) {
-                        g.resetGhost();  //put ghost back in starting position
-                        if(g instanceof RedGhost)
-                            g.setRestTimer(0); //red ghost gets no rest timer
-                    }
-
-                    pacman.setDead(true);
-                    pacman.setRotation(0);
-
-                    nonLoopingRuntime = 0;
-                    prevRuntime = runTime;
-
-                    ProgressKeeper.loseALife();
-
+                    pacmanDeath(pacman, ghosts, runTime);
                 }
             }
         }
-        batcher.end();
-
     }
+
+    private void pacmanDeath(Pacman pacman, Ghost[] ghosts, float runTime){
+        for (Ghost g:ghosts) {
+            g.resetGhost();  //put ghost back in starting position
+            if(g instanceof RedGhost)
+                g.setRestTimer(0); //red ghost gets no rest timer
+        }
+
+        pacman.setDead(true);
+        pacman.setRotation(0);
+
+        nonLoopingRuntime = 0;
+        prevRuntime = runTime;
+
+        ProgressKeeper.loseALife();
+    }
+
+    //moved collisions here (from Player) to set ghosts edible (didn't have access to ghosts in Player)
+    private void handleMapCollisions(Pacman pacman, Ghost[] ghosts, Map map){
+        int charRows = 28;
+        float vertOffset =21.4f;
+
+        int mapX = Math.round(pacman.getX()/boxsize);
+        int mapY = (charRows*Math.round((pacman.getY() - vertOffset)/boxsize));
+
+
+        switch (Map.currMap.charAt(mapX+mapY)) {
+            case 'o':
+                pacman.setInvincibleTrue();
+
+                for (Ghost ghost: ghosts) {
+                    ghost.setGhostsEdibleTrue();
+                }
+                AssetLoader.powerPacman.play();
+                ProgressKeeper.addToScore(40);
+            case '.':
+                Map.currMap.setCharAt(mapX + mapY, ' ');
+
+                if (!SoundService.getKaIsPlaying())
+                    SoundService.setKaIsPlaying();
+                else
+                    AssetLoader.wa.play();
+
+                Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
+                ProgressKeeper.addToScore(10);
+                break;
+            default:
+
+        }
+    }
+
 
     public void dispose()
     {

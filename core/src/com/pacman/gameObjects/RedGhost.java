@@ -9,21 +9,24 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class RedGhost extends Ghost {
 
-    final static int startingX = 70;
-    final static int startingY = 90;
+    //starts at (70,90)
+
     public RedGhost(Animation<TextureRegion> animation) {
-        super(startingX, startingY, animation);
+
+        super(70, 90, animation);
         restTimer = 0;
     }
 
-    public Vector2 getTarget(Pacman pacman)
-    {
+    public Vector2 getTarget(Pacman pacman) {
+//        if (_isEaten)
+//            return startPos;
+
         return pacman.getCoord();
     }
 
     @Override
     public void resetGhost()
     {
-        super.resetGhost(startingX, startingY);
+        super.resetGhost(startPos.x, startPos.y);
     }
 }

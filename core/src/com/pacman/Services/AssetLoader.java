@@ -22,7 +22,7 @@ public class AssetLoader {
     public static Animation<TextureRegion> pacmAnimation, dyingPacmAnimation, powerPellet;
     public static Animation<TextureRegion> redGhost, blueGhost, pinkGhost, orangeGhost, edibleGhost ;
 
-    public static TextureRegion pacOpen, pacMid, pacClosed, bigPacman;
+    public static TextureRegion pacOpen, pacMid, pacClosed, bigPacman, ghostEyes;
     public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, edibleGhostImages, powerPelletImages;
     public static TextureRegion[][] mazeTiles;
 
@@ -71,7 +71,7 @@ public class AssetLoader {
 
 
         ghostSheet = new Texture(Gdx.files.internal("img/ghostSheet.png"));
-        // pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
+        //pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
 
         redGhostImages = new TextureRegion[2];
         redGhostImages[0] = new TextureRegion(ghostSheet,  2, 1, 14, 14);
@@ -107,6 +107,8 @@ public class AssetLoader {
         edibleGhostImages[1] = new TextureRegion(ghostSheet,  146, 1, 14, 14);
         edibleGhostImages[1].flip(false,true);
         edibleGhost = new Animation<TextureRegion>(0.1f, edibleGhostImages);
+
+        ghostEyes = new TextureRegion(ghostSheet, 130, 17, 14, 14);
 
         /*
          *  Dead Pacman

@@ -6,9 +6,6 @@ package com.pacman.Services;
 public class SoundService {
     private static boolean kaIsPlaying, sirenIsPlaying = false;
 
-    private static boolean introIsPlaying = false;
-    private static boolean introHasPlayed = false;
-
 
 
     public static void setSirenIsPlaying(){ //replaces nomnom
@@ -39,28 +36,12 @@ public class SoundService {
     }
 
     public static void setIntroIsPlaying(){
-        introIsPlaying = true;
-        introHasPlayed = true;
         AssetLoader.introMusic.play();
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        introIsPlaying = false;
-                        this.cancel();
-                    }
-                }, 4000);
     }
 
     public static boolean getSirenIsPlaying(){ return sirenIsPlaying; }
 
     public static boolean getKaIsPlaying(){ return kaIsPlaying; }
 
-    public static boolean getIntroIsPlaying() {
-        return introIsPlaying;
-    }
 
-    public static boolean getIntroHasPlayed(){
-        return introHasPlayed;
-    }
 }

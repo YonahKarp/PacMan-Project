@@ -9,15 +9,17 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class PinkGhost extends Ghost
 {
-    final static int startingX = 70;
-    final static int startingY = 95;
+   //starts at (70,95)
+
     public PinkGhost (Animation<TextureRegion> animation) {
-        super(startingX, startingY, animation);
+        super(70, 95, animation);
     }
 
     //set pinkGhost target to 4 tiles ahead of pacman (i.e 32px)
     public Vector2 getTarget(Pacman pacman)
     {
+
+
         Vector2 target = new Vector2();
         Vector2 pacCoord = pacman.getCoord();
         float pacX = pacCoord.x;
@@ -42,6 +44,6 @@ public class PinkGhost extends Ghost
     @Override
     public  void resetGhost()
     {
-        super.resetGhost(startingX, startingY);
+        super.resetGhost(startPos.x, startPos.y);
     }
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.pacman.Services.AssetLoader;
+import com.pacman.Services.ProgressKeeper;
 import com.pacman.Services.SoundService;
 import org.omg.CORBA.Environment;
 
@@ -16,12 +17,12 @@ import java.util.Random;
  * Created by MNA on 3/22/2017.
  */
 public class Ghost extends Player {
-    private Random rand = new Random();
     private Rectangle ghostRect;  //encapsulate ghost in rectangle for collision detection
     private Animation<TextureRegion> animation;
     private Animation<TextureRegion> edibleAnimation = AssetLoader.edibleGhost;
 
-    private int currMove = 3; //start by moving up
+    private int _isEdible = 0;
+    boolean _isEaten = false;
 
     double restTimer = 5;
 
@@ -34,8 +35,7 @@ public class Ghost extends Player {
 
     }
 
-    public Vector2 getTarget(Pacman pacman)
-    {
+    public Vector2 getTarget(Pacman pacman) {
         return pacman.getCoord();
     }
 
@@ -51,7 +51,7 @@ public class Ghost extends Player {
         }
 
         if(!SoundService.getSirenIsPlaying())
-            SoundService.setSirenIsPlaying();
+            SoundService.setSirenIsPlaying();//todo make sound shorter
 
 
         if(x < 0.8 && direction!='r') //ensure ghost didnt just come through the tunnel
@@ -72,7 +72,7 @@ public class Ghost extends Player {
 
         float closestPath = Integer.MAX_VALUE;
 
-        int shouldRunMultiplier = (pacman.isInvincible())? -1 : 1;
+        int shouldRunMultiplier = (isEdible())? -1 : 1;
 
 
 //        boolean atTurningPoint;
@@ -141,17 +141,40 @@ public class Ghost extends Player {
         }
 
         currentDirection = preDirection;
-
-        //System.err.println(temp2.x+" "+temp2.y+" pac: "+pacman.getX()+","+pacman.getY());
     }
 
-    public float getX()
-    {
-        return x;
+    public void setGhostsEdibleTrue() {
+        _isEdible += 1;
+
+        //after 10000 seconds we set invincible false
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+
+                        if (isEdible())
+                            _isEdible -= 1;
+                        this.cancel();
+                    }
+                }, 10000);
     }
-    public float getY()
-    {
-        return y;
+
+    public void setEdibleFalse(){
+        _isEdible = 0;
+    }
+
+    public boolean isEdible() {
+        return _isEdible > 0;
+    }
+
+    public boolean isEaten() {
+        return _isEaten;
+    }
+
+    public void setIsEaten(boolean isEaten) {
+        _isEaten = isEaten;
+        if (isEaten)
+            speed = 80;
     }
 
     //get rectangle to check if intersects with pacman's rectangle
@@ -165,7 +188,7 @@ public class Ghost extends Player {
 
     public void resetGhost(){}
 
-    public void resetGhost(int x, int y) {
+    public void resetGhost(float x, float y) {
         currentDirection = 'e';
 
         this.x = x;

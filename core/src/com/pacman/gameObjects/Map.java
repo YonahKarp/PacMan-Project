@@ -50,7 +50,7 @@ public class Map {
                                "║..........................║" +
                                "╚══════════════════════════╝";
 
-     static StringBuilder currMap = new StringBuilder(mapString);
+     public static StringBuilder currMap = new StringBuilder(mapString);
 
     public static TextureRegion[][] textureMap = createTextureMap(mapString);
 
@@ -119,15 +119,9 @@ public class Map {
         for (int i = 0; i < letters.length; i++) {
 
             switch (letters[i]){
-                //case '╧':
-                    //map[i/28][i%28] = AssetLoader.mazeTiles[1][10]; //remember, it's flipped in y down
-                    //break;
                 case '═':
                     map[i/28][i%28] = AssetLoader.mazeTiles[0][10];
                     break;
-                //case '╢':
-                   // map[i/28][i%28] = AssetLoader.mazeTiles[0][3];
-                    //break;
                 case '║':
                     map[i/28][i%28] = AssetLoader.mazeTiles[0][2];
                     break;

@@ -9,17 +9,18 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class BlueGhost extends Ghost
 {
-    final static int startingX = 84;
-    final static int startingY = 95;
-    RedGhost redGhost;
+    //starts at (84,95)
+
+    private RedGhost redGhost;
     public BlueGhost (RedGhost rg, Animation<TextureRegion> animation) {
-        super(startingX, startingY, animation);
+        super(84, 95, animation);
         redGhost = rg;
     }
 
     //set BlueGhost target to: draw line from redGhost to 2 tiles ahead of pacman (i.e 16px) and then extend that line double the length
     public Vector2 getTarget(Pacman pacman)
     {
+
         Vector2 temp = new Vector2();
         Vector2 pacCoord = pacman.getCoord();
         float pacX = pacCoord.x;
@@ -58,6 +59,6 @@ public class BlueGhost extends Ghost
     @Override
     public  void resetGhost()
     {
-        super.resetGhost(startingX, startingY);
+        super.resetGhost(startPos.x, startPos.y);
     }
 }
