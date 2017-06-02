@@ -210,8 +210,10 @@ public class Map {
                 case '┢':
                     map[i/28][i%28] = AssetLoader.mazeTiles[0][7];
                     break;
-
-
+                /*case '$':
+                    map[i/28][i%28] = AssetLoader.cherry;
+                    break;
+                */
                 case '.':
                     map[i/28][i%28] = AssetLoader.mazeTiles[2][10];
                     break;

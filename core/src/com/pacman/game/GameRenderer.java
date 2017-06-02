@@ -16,7 +16,13 @@ import com.pacman.gameObjects.*;
 import com.pacman.screens.PacmanGameScreen;
 import com.pacman.screens.SplashScreen;
 
+import javax.swing.*;
+import javax.xml.soap.Text;
+
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Time;
 
 /**
@@ -29,7 +35,7 @@ public class GameRenderer {
 
     private SpriteBatch batcher;
     private final float boxsize = 5.35f;
-
+    FruitGenerator fruit;
 
     //used for when pacman dies (singular looping of animation)
     private float nonLoopingRuntime = 0;
@@ -71,6 +77,24 @@ public class GameRenderer {
         drawMap(pacman, ghosts, runTime);
         drawPacman(pacman, runTime);
         drawGhosts(ghosts, pacman, runTime);
+
+        //show fruit for 10 seconds when 70 or 170 dots eaten
+       if(ProgressKeeper.getDotAndEnergEaten()==70 || ProgressKeeper.getDotAndEnergEaten()==170) {
+           int eaten = ProgressKeeper.getDotAndEnergEaten();
+           fruit = new FruitGenerator(eaten==70? FruitGenerator.Fruits.CHERRY: FruitGenerator.Fruits.STRAWBERRY);
+           TextureRegion fruitTexture = fruit.getTexture();
+           Map.textureMap[17][14] = fruitTexture;
+           Map.currMap.setCharAt(490, '$');
+
+           new java.util.Timer().schedule(
+                   new java.util.TimerTask() {
+                       @Override
+                       public void run() {
+                    Map.currMap.setCharAt(490, ' ');
+                    Map.textureMap[17][14] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
+                }
+            },10000);
+        }
 
         batcher.end();
     }
@@ -219,6 +243,10 @@ public class GameRenderer {
                 Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
                 ProgressKeeper.addToDotsEaten();
                 break;
+            case '$':
+                Map.currMap.setCharAt(mapX+mapY, ' ');
+                Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
+                ProgressKeeper.addToScore(fruit.getPoints());
             default:
 
         }

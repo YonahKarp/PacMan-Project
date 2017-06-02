@@ -95,6 +95,7 @@ public class Player {
             case 'o':
             case '.':
             case ' ':
+            case '$':
                 //keep pacman / ghosts in middle
                 if(newDirection == 'l' || newDirection == 'r')
                     return y*100 % 535f < 85 || y*100 % 535f > 450; //modulo doesn't work well with decimal numbers, so multiplying out decimals solves issue

@@ -22,7 +22,7 @@ public class AssetLoader {
     public static Animation<TextureRegion> pacmAnimation, dyingPacmAnimation, powerPellet;
     public static Animation<TextureRegion> redGhost, blueGhost, pinkGhost, orangeGhost, edibleGhost ;
 
-    public static TextureRegion pacOpen, pacMid, pacClosed, bigPacman, ghostEyes;
+    public static TextureRegion pacOpen, pacMid, pacClosed, bigPacman, ghostEyes, cherry, strawberry;
     public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, edibleGhostImages, powerPelletImages;
     public static TextureRegion[][] mazeTiles;
 
@@ -46,7 +46,10 @@ public class AssetLoader {
         pacMid = new TextureRegion(pacmanSheet, 19, 1, 13, 13);;
 
         pacClosed = new TextureRegion(pacmanSheet, 35, 1, 13, 13);
-
+        cherry = new TextureRegion(pacmanSheet, 37, 48, 13, 13);
+        cherry.flip(false, true);
+        strawberry = new TextureRegion(pacmanSheet, 53, 48, 13, 13);
+        strawberry.flip(false, true);
         TextureRegion[] pacMan = { pacOpen, pacMid, pacClosed };
         pacmAnimation = new Animation<TextureRegion>(0.1f, pacMan);
         pacmAnimation.setPlayMode(Animation.PlayMode.NORMAL); //nom nom nom
