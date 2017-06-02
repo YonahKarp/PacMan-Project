@@ -14,6 +14,7 @@ import com.pacman.Services.ProgressKeeper;
 import com.pacman.Services.SoundService;
 import com.pacman.gameObjects.*;
 import com.pacman.screens.PacmanGameScreen;
+import com.pacman.screens.SplashScreen;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import java.sql.Time;
@@ -206,7 +207,7 @@ public class GameRenderer {
                     ghost.setGhostsEdibleTrue();
                 }
                 AssetLoader.powerPacman.play();
-                ProgressKeeper.addToScore(40);
+                ProgressKeeper.addToEnergizerEaten();
             case '.':
                 Map.currMap.setCharAt(mapX + mapY, ' ');
 
@@ -216,7 +217,7 @@ public class GameRenderer {
                     AssetLoader.wa.play();
 
                 Map.textureMap[mapY / 28][mapX] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
-                ProgressKeeper.addToScore(10);
+                ProgressKeeper.addToDotsEaten();
                 break;
             default:
 

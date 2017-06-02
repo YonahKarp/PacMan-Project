@@ -49,10 +49,13 @@ public class PacmanGameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        if (ProgressKeeper.getLives() < 0) {
-            this.game.setScreen(new SplashScreen(this.game));
-            ProgressKeeper.resetData();
+        System.out.println(ProgressKeeper.getDotAndEnergEaten());
+        //reset when all lives lost or all dots eaten
+        if (ProgressKeeper.getLives() < 0  || ProgressKeeper.getDotAndEnergEaten() == 250) {
             this.dispose();
+            ProgressKeeper.resetData();
+            this.game.setScreen(new SplashScreen(this.game));
+            environment.getMap().resetMap();
         }
 
         runtime += delta;
@@ -85,4 +88,3 @@ public class PacmanGameScreen implements Screen {
         System.err.println("dispose called");
     }
 }
-

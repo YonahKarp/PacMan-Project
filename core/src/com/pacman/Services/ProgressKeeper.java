@@ -7,6 +7,8 @@ import com.pacman.gameObjects.Map;
  * Created by YonahKarp on 4/27/17.
  */
 public class ProgressKeeper {
+    private static int dotsEaten = 0;  //to keep track of how many dots were eaten to end level
+    private static int energizerDotsEaten = 0;
     private static int score = 0;
     private static int lives = 3;
     private static int highScore = 0;
@@ -16,6 +18,16 @@ public class ProgressKeeper {
 
 
     private static boolean extraLifeGiven = false;
+
+    public static void addToDotsEaten(){
+        dotsEaten+=1;
+        addToScore(10);
+    }
+
+    public static void addToEnergizerEaten(){
+        energizerDotsEaten+=1;
+        addToScore(50);
+    }
 
     public static void addToScore(int val){
         score += val;
@@ -35,6 +47,9 @@ public class ProgressKeeper {
         addToScore(200*ghostsEaten);
     }
 
+    public static int getDotsEaten() {return  dotsEaten; }
+
+    public static int getDotAndEnergEaten() {return  dotsEaten+energizerDotsEaten; }
 
     public static int getScore(){
         return score;
@@ -52,6 +67,8 @@ public class ProgressKeeper {
     }
 
     public static void resetData(){
+        energizerDotsEaten = 0;
+        dotsEaten = 0;
         score = 0;
         lives = 3;
         extraLifeGiven = false;
