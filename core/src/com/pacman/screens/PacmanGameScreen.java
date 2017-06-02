@@ -51,7 +51,7 @@ public class PacmanGameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        System.out.println(ProgressKeeper.getDotAndEnergEaten());
+        //System.out.println(ProgressKeeper.getDotAndEnergEaten());
         //reset when all lives lost or all dots eaten
         if (ProgressKeeper.getLives() < 0) {
             this.dispose();

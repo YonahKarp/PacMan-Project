@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 public class RedGhost extends Ghost {
 
     //starts at (70,90)
+    private Vector2 retreatPos = new Vector2(60, 95);
 
     public RedGhost(Animation<TextureRegion> animation) {
 
@@ -18,8 +19,8 @@ public class RedGhost extends Ghost {
     }
 
     public Vector2 getTarget(Pacman pacman) {
-//        if (_isEaten)
-//            return startPos;
+        if (_isEaten)
+            return retreatPos;
 
         return pacman.getCoord();
     }

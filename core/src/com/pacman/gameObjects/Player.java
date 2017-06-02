@@ -105,14 +105,20 @@ public class Player {
             case '&':  //dont allow back into ghosthouse
 
                 //for returning purposes
-//                if (this instanceof  Ghost)
-//                    if(((Ghost)this).isEaten())
-//                        return true;
+                if (this instanceof  Ghost)
+                    if(((Ghost)this).isEaten())
+                        return true;
 
                 return  newDirection == 'u';
             case '>':  //send out of ghost house
+                if (this instanceof  Ghost)
+                    if(((Ghost)this).isEaten())
+                        return true;
                 return !(newDirection == 'l' || newDirection == 'd');
             case '<':  //send out of ghost house
+                if (this instanceof  Ghost)
+                    if(((Ghost)this).isEaten())
+                        return true;
                 return !(newDirection == 'r' || newDirection == 'd');
             default:
                 return false;

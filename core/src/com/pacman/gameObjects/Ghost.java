@@ -72,7 +72,7 @@ public class Ghost extends Player {
 
         float closestPath = Integer.MAX_VALUE;
 
-        int shouldRunMultiplier = (isEdible())? -1 : 1;
+        int shouldRunMultiplier = (isEdible() && !isEaten())? -1 : 1;
         int speed = (ProgressKeeper.getLevel() < 10)? baseSpeed + ProgressKeeper.getLevel() : 40;
 
 
@@ -134,6 +134,14 @@ public class Ghost extends Player {
         }
 
         currentDirection = preDirection;
+
+        if(_isEaten && Math.abs(60 - x) + Math.abs(95 - y) < 10) {
+            _isEaten = false;
+            baseSpeed = 30;
+            _isEdible = 0;
+            restTimer = 0;
+        }
+
     }
 
     public void setGhostsEdibleTrue() {

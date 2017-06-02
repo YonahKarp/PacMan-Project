@@ -169,11 +169,12 @@ public class GameRenderer {
             if (Intersector.overlaps(pacman.getRect(), ghost.getRect())) {
 
                 if(ghost.isEdible()) {
-                    ghost.setEdibleFalse();
+
                     //ghost.setIsEaten(true);
+                    ghost.setEdibleFalse();
                     ghost.resetGhost(); //if pacman is invincible, only eat that ghost
                     ProgressKeeper.eatGhost();
-                }
+                }else if(ghost.isEaten()){} //do nothing if ghost already eaten
                 else{
                     pacmanDeath(pacman, ghosts, runTime);
                 }
