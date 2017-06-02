@@ -78,23 +78,7 @@ public class GameRenderer {
         drawPacman(pacman, runTime);
         drawGhosts(ghosts, pacman, runTime);
 
-        //show fruit for 10 seconds when 70 or 170 dots eaten
-       if(ProgressKeeper.getDotAndEnergEaten()==70 || ProgressKeeper.getDotAndEnergEaten()==170) {
-           int eaten = ProgressKeeper.getDotAndEnergEaten();
-           fruit = new FruitGenerator(eaten==70? FruitGenerator.Fruits.CHERRY: FruitGenerator.Fruits.STRAWBERRY);
-           TextureRegion fruitTexture = fruit.getTexture();
-           Map.textureMap[17][14] = fruitTexture;
-           Map.currMap.setCharAt(490, '$');
-
-           new java.util.Timer().schedule(
-                   new java.util.TimerTask() {
-                       @Override
-                       public void run() {
-                    Map.currMap.setCharAt(490, ' ');
-                    Map.textureMap[17][14] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
-                }
-            },10000);
-        }
+        drawFruit();
 
         batcher.end();
     }
@@ -138,7 +122,6 @@ public class GameRenderer {
                 pacman.getRotation() //rotation
         );
     }
-
 
     private void drawMap(Pacman pacman, Ghost[] ghosts, float runTime){
         final int MAP_COLS = 28, MAP_ROWS = 31;
@@ -195,6 +178,27 @@ public class GameRenderer {
                     pacmanDeath(pacman, ghosts, runTime);
                 }
             }
+        }
+    }
+
+
+    //show fruit for 10 seconds when 70 or 170 dots eaten
+    private void drawFruit() {
+        if (ProgressKeeper.getDotAndEnergEaten() == 70 || ProgressKeeper.getDotAndEnergEaten() == 170) {
+            fruit = new FruitGenerator(ProgressKeeper.getLevel());
+            TextureRegion fruitTexture = fruit.getTexture();
+            Map.textureMap[17][14] = fruitTexture;
+
+            Map.currMap.setCharAt(490, '$');
+
+            new java.util.Timer().schedule(
+                    new java.util.TimerTask() {
+                        @Override
+                        public void run() {
+                            Map.currMap.setCharAt(490, ' ');
+                            Map.textureMap[17][14] = AssetLoader.mazeTiles[2][13]; //set tile empty on eat
+                        }
+                    }, 10000);
         }
     }
 

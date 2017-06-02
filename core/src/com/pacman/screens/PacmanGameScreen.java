@@ -11,6 +11,8 @@ import com.pacman.game.GameRenderer;
 import com.pacman.game.GameEnvironment;
 import com.pacman.Services.InputHandler;
 import com.pacman.game.PacmanGame;
+import com.pacman.gameObjects.Ghost;
+import com.pacman.gameObjects.Map;
 
 
 /**
@@ -51,11 +53,18 @@ public class PacmanGameScreen implements Screen {
 
         System.out.println(ProgressKeeper.getDotAndEnergEaten());
         //reset when all lives lost or all dots eaten
-        if (ProgressKeeper.getLives() < 0  || ProgressKeeper.getDotAndEnergEaten() == 250) {
+        if (ProgressKeeper.getLives() < 0) {
             this.dispose();
             ProgressKeeper.resetData();
             this.game.setScreen(new SplashScreen(this.game));
-            environment.getMap().resetMap();
+            Map.resetMap();
+        }else if( ProgressKeeper.getDotAndEnergEaten() == 250){
+            ProgressKeeper.goUpLevel();
+            Map.resetMap();
+            environment.getPacman().resetPacman();
+            for (Ghost ghost :environment.getGhosts()){
+                ghost.resetGhost();
+            }
         }
 
         runtime += delta;

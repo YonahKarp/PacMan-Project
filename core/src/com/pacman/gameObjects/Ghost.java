@@ -40,7 +40,7 @@ public class Ghost extends Player {
     }
 
     protected char currentDirection = 'e',preDirection;
-    private int speed = 30;
+    private int baseSpeed = 30;
 
 
     public void update(float delta, Pacman pacman) {
@@ -73,15 +73,8 @@ public class Ghost extends Player {
         float closestPath = Integer.MAX_VALUE;
 
         int shouldRunMultiplier = (isEdible())? -1 : 1;
+        int speed = (ProgressKeeper.getLevel() < 10)? baseSpeed + ProgressKeeper.getLevel() : 40;
 
-
-//        boolean atTurningPoint;
-//        if(currentDirection == 'l' || currentDirection == 'r')
-//            atTurningPoint = y*100 % 535f < 85 || y*100 % 535f > 450; //modulo doesn't work well with decimal numbers, so multiplying out decimals solves issue
-//        else
-//            atTurningPoint = x*100 % 535f < 85|| x*100 % 535f > 450;
-//
-//        if (atTurningPoint) {
 
         if (pathIsClear('u') && currentDirection != 'd') {  //ghostCoordst isnt allowed to reverse direction
 
@@ -174,7 +167,7 @@ public class Ghost extends Player {
     public void setIsEaten(boolean isEaten) {
         _isEaten = isEaten;
         if (isEaten)
-            speed = 80;
+            baseSpeed = 80;
     }
 
     //get rectangle to check if intersects with pacman's rectangle

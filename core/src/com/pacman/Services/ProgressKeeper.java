@@ -12,7 +12,7 @@ public class ProgressKeeper {
     private static int score = 0;
     private static int lives = 3;
     private static int highScore = 0;
-    //private static int level = 0;
+    private static int level = 0;
 
     private static int ghostsEaten = 0;
 
@@ -26,7 +26,7 @@ public class ProgressKeeper {
 
     public static void addToEnergizerEaten(){
         energizerDotsEaten+=1;
-        addToScore(50);
+        addToScore(40);
     }
 
     public static void addToScore(int val){
@@ -82,6 +82,20 @@ public class ProgressKeeper {
         return highScore;
     }
 
+    public static int getLevel() {
+        return level;
+    }
+
+    public static void resetLevel() {
+        level = 0;
+    }
+
+    public static void goUpLevel() {
+        level++;
+        dotsEaten = 0;
+        energizerDotsEaten = 0;
+    }
+
     public static String progressString(){
         String tmpLives ="";
 
@@ -89,7 +103,7 @@ public class ProgressKeeper {
             tmpLives += "@";
         }
 
-        return "score: " + score + " Lives: " + tmpLives + " \n HighScore: " + highScore;
+        return "Level: " + (level +1) +" score: " + score + " Lives: " + tmpLives + " \n HighScore: " + highScore;
 
     }
 }

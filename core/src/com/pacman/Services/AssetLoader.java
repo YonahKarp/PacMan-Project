@@ -22,7 +22,8 @@ public class AssetLoader {
     public static Animation<TextureRegion> pacmAnimation, dyingPacmAnimation, powerPellet;
     public static Animation<TextureRegion> redGhost, blueGhost, pinkGhost, orangeGhost, edibleGhost ;
 
-    public static TextureRegion pacOpen, pacMid, pacClosed, bigPacman, ghostEyes, cherry, strawberry;
+    public static TextureRegion pacOpen, pacMid, pacClosed, bigPacman, ghostEyes,
+            cherry, strawberry, orange, apple, pineapple, spaceship,bell, key;
     public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, edibleGhostImages, powerPelletImages;
     public static TextureRegion[][] mazeTiles;
 
@@ -41,15 +42,27 @@ public class AssetLoader {
         pacmanSheet = new Texture(Gdx.files.internal("img/pacmanSheet.png"));
         pacmanSheet.setFilter(TextureFilter.Nearest, TextureFilter.Nearest); //retain pixelation (no blur)
         pacOpen = new TextureRegion(pacmanSheet, 3, 1, 13, 13); //location on sprite sheet
-        //pacOpen.flip(false, true); //may need to be flipped in Y down paradigm
-
         pacMid = new TextureRegion(pacmanSheet, 19, 1, 13, 13);;
-
         pacClosed = new TextureRegion(pacmanSheet, 35, 1, 13, 13);
-        cherry = new TextureRegion(pacmanSheet, 37, 48, 13, 13);
+
+        cherry = new TextureRegion(pacmanSheet, 36, 50, 12, 12);
         cherry.flip(false, true);
-        strawberry = new TextureRegion(pacmanSheet, 53, 48, 13, 13);
+        strawberry = new TextureRegion(pacmanSheet, 52, 50, 12, 12);
         strawberry.flip(false, true);
+        orange = new TextureRegion(pacmanSheet, 68, 50, 12, 12);
+        orange.flip(false, true);
+        apple = new TextureRegion(pacmanSheet, 84, 50, 12, 12);
+        apple.flip(false, true);
+        pineapple = new TextureRegion(pacmanSheet, 100, 50, 12, 12);
+        pineapple.flip(false, true);
+        spaceship = new TextureRegion(pacmanSheet, 116, 50, 12, 12);
+        spaceship.flip(false, true);
+        bell = new TextureRegion(pacmanSheet, 132, 50, 12, 12);
+        bell.flip(false, true);
+        key = new TextureRegion(pacmanSheet, 148, 50, 12, 12);
+        key.flip(false, true);
+
+
         TextureRegion[] pacMan = { pacOpen, pacMid, pacClosed };
         pacmAnimation = new Animation<TextureRegion>(0.1f, pacMan);
         pacmAnimation.setPlayMode(Animation.PlayMode.NORMAL); //nom nom nom
