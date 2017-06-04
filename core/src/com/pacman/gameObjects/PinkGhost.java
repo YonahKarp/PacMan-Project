@@ -18,7 +18,8 @@ public class PinkGhost extends Ghost
     //set pinkGhost target to 4 tiles ahead of pacman (i.e 32px)
     public Vector2 getTarget(Pacman pacman)
     {
-
+        if (_isEaten)
+            return startPos;
 
         Vector2 target = new Vector2();
         Vector2 pacCoord = pacman.getCoord();

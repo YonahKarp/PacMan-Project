@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.pacman.Services.AssetLoader;
 import com.pacman.Services.ProgressKeeper;
+import com.pacman.Services.SoundService;
 
 /**
  * Created by YonahKarp on 3/6/17.
@@ -107,8 +108,10 @@ public class Pacman extends Player
 
     public void setDead(boolean status)
     {
-        if (status)
+        if (status) {
             AssetLoader.death.play();
+            SoundService.stopSiren();
+        }
         _isDead=status;
     }
 

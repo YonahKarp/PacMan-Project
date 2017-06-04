@@ -20,11 +20,11 @@ public class AssetLoader {
     public static Texture pacmanSheet, hillarySheet, mazeSheet, ghostSheet;
 
     public static Animation<TextureRegion> pacmAnimation, dyingPacmAnimation, powerPellet;
-    public static Animation<TextureRegion> redGhost, blueGhost, pinkGhost, orangeGhost, edibleGhost ;
+    public static Animation<TextureRegion> redGhost, blueGhost, pinkGhost, orangeGhost, edibleGhost, endingEdibleGhost ;
 
     public static TextureRegion pacOpen, pacMid, pacClosed, bigPacman, ghostEyes,
             cherry, strawberry, orange, apple, pineapple, spaceship,bell, key;
-    public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, edibleGhostImages, powerPelletImages;
+    public static TextureRegion[] redGhostImages, blueGhostImages, pinkGhostImages, orangeGhostImages, edibleGhostImages, endingEdibleImages, powerPelletImages;
     public static TextureRegion[][] mazeTiles;
 
     public static Sound introMusic, nomnom, death, powerPacman, ka, wa, siren;
@@ -123,6 +123,12 @@ public class AssetLoader {
         edibleGhostImages[1] = new TextureRegion(ghostSheet,  146, 1, 14, 14);
         edibleGhostImages[1].flip(false,true);
         edibleGhost = new Animation<TextureRegion>(0.1f, edibleGhostImages);
+
+        endingEdibleImages = new TextureRegion[2];
+        endingEdibleImages[0] = edibleGhostImages[1];
+        endingEdibleImages[1] = new TextureRegion(ghostSheet,  163, 1, 14, 14);
+        endingEdibleImages[1].flip(false,true);
+        endingEdibleGhost = new Animation<TextureRegion>(0.1f, endingEdibleImages);
 
         ghostEyes = new TextureRegion(ghostSheet, 130, 17, 14, 14);
 

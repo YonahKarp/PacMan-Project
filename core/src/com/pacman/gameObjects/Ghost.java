@@ -8,10 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.pacman.Services.AssetLoader;
 import com.pacman.Services.ProgressKeeper;
 import com.pacman.Services.SoundService;
-import org.omg.CORBA.Environment;
-
-import java.util.Date;
-import java.util.Random;
 
 /**
  * Created by MNA on 3/22/2017.
@@ -26,6 +22,8 @@ public class Ghost extends Player {
 
     double restTimer = 5;
 
+    protected char currentDirection = 'e',preDirection;
+    private int baseSpeed = 30;
 
     public Ghost(float x, float y, Animation<TextureRegion> animation)
     {
@@ -39,18 +37,17 @@ public class Ghost extends Player {
         return pacman.getCoord();
     }
 
-    protected char currentDirection = 'e',preDirection;
-    private int baseSpeed = 30;
-
 
     public void update(float delta, Pacman pacman) {
+
+        int speed = (ProgressKeeper.getLevel() < 10)? baseSpeed + ProgressKeeper.getLevel() : 40;
 
         if (restTimer > 0){ //ghost rests after being eaten
             restTimer -= delta;
             return;
         }
 
-        if(!SoundService.getSirenIsPlaying())
+        if(!SoundService.getSirenIsPlaying() && !(_isEaten || _isEdible > 0))
             SoundService.setSirenIsPlaying();//todo make sound shorter
 
 
@@ -73,13 +70,12 @@ public class Ghost extends Player {
         float closestPath = Integer.MAX_VALUE;
 
         int shouldRunMultiplier = (isEdible() && !isEaten())? -1 : 1;
-        int speed = (ProgressKeeper.getLevel() < 10)? baseSpeed + ProgressKeeper.getLevel() : 40;
 
 
         if (pathIsClear('u') && currentDirection != 'd') {  //ghostCoordst isnt allowed to reverse direction
 
             temp = ghostCoord.cpy();
-            temp = temp.add(0.0f, (-speed * delta));  //set temp vector to the position to test
+            temp = temp.add(0.0f, -speed * delta);  //set temp vector to the position to test
             float distance = temp.dst2(target);  //check distance from that spot to pacman
             if (distance * shouldRunMultiplier < closestPath) {
                 temp2 = temp;
@@ -90,7 +86,7 @@ public class Ghost extends Player {
 
         if (pathIsClear('l') && currentDirection != 'r') {
             temp = ghostCoord.cpy();
-            temp = temp.add((-speed * delta), 0.0f);
+            temp = temp.add(-speed * delta, 0.0f);
             float distance = temp.dst2(target);
             if (distance * shouldRunMultiplier < closestPath) {
                 temp2 = temp;
@@ -100,7 +96,7 @@ public class Ghost extends Player {
         }
         if (pathIsClear('d') && currentDirection != 'u') {
             temp = ghostCoord.cpy();
-            temp = temp.add(0.0f, (speed * delta));
+            temp = temp.add(0.0f, speed * delta);
             float distance = temp.dst2(target);
             if (distance * shouldRunMultiplier < closestPath) {
                 temp2 = temp;
@@ -122,7 +118,7 @@ public class Ghost extends Player {
 
 
         if((currentDirection == 'r' || currentDirection == 'l') && (preDirection == 'u' || preDirection == 'd')){
-            x = boxSize *(Math.round(temp2.x/boxSize ));
+            x = boxSize *(Math.round(temp2.x/boxSize )); //keep ghost in middle of path
             y = temp2.y;
         }
         else if((currentDirection == 'u' || currentDirection == 'd') && (preDirection == 'r' || preDirection == 'l')){
@@ -135,13 +131,10 @@ public class Ghost extends Player {
 
         currentDirection = preDirection;
 
-        if(_isEaten && Math.abs(60 - x) + Math.abs(95 - y) < 10) {
-            _isEaten = false;
+        if(_isEaten && Math.abs(startPos.x - x) + Math.abs(startPos.y - y) < 30) {
+           resetGhost();
             baseSpeed = 30;
-            _isEdible = 0;
-            restTimer = 0;
         }
-
     }
 
     public void setGhostsEdibleTrue() {
@@ -155,9 +148,21 @@ public class Ghost extends Player {
 
                         if (isEdible())
                             _isEdible -= 1;
+
+                        edibleAnimation = AssetLoader.edibleGhost;
                         this.cancel();
                     }
                 }, 10000);
+
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+
+                        edibleAnimation = AssetLoader.endingEdibleGhost;
+                        this.cancel();
+                    }
+                }, 8000);
     }
 
     public void setEdibleFalse(){
@@ -175,7 +180,7 @@ public class Ghost extends Player {
     public void setIsEaten(boolean isEaten) {
         _isEaten = isEaten;
         if (isEaten)
-            baseSpeed = 80;
+            baseSpeed = 100;
     }
 
     //get rectangle to check if intersects with pacman's rectangle
@@ -195,6 +200,8 @@ public class Ghost extends Player {
         this.x = x;
         this.y = y;
         restTimer = 5;
+        _isEaten = false;
+        _isEdible = 0;
     }
 
     public Animation<TextureRegion> getAnimation() {

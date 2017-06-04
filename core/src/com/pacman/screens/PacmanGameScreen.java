@@ -13,6 +13,7 @@ import com.pacman.Services.InputHandler;
 import com.pacman.game.PacmanGame;
 import com.pacman.gameObjects.Ghost;
 import com.pacman.gameObjects.Map;
+import com.pacman.gameObjects.RedGhost;
 
 
 /**
@@ -64,6 +65,8 @@ public class PacmanGameScreen implements Screen {
             environment.getPacman().resetPacman();
             for (Ghost ghost :environment.getGhosts()){
                 ghost.resetGhost();
+                if(ghost instanceof RedGhost)
+                    ghost.setRestTimer(0);
             }
         }
 

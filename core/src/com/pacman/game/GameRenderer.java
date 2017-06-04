@@ -168,13 +168,12 @@ public class GameRenderer {
             //check if pacman collides with ghost
             if (Intersector.overlaps(pacman.getRect(), ghost.getRect())) {
 
-                if(ghost.isEdible()) {
+                if(ghost.isEaten()){} //do nothing if ghost already eaten
+                else if(ghost.isEdible()) {
 
-                    //ghost.setIsEaten(true);
-                    ghost.setEdibleFalse();
-                    ghost.resetGhost(); //if pacman is invincible, only eat that ghost
+                    ghost.setIsEaten(true);
                     ProgressKeeper.eatGhost();
-                }else if(ghost.isEaten()){} //do nothing if ghost already eaten
+                }
                 else{
                     pacmanDeath(pacman, ghosts, runTime);
                 }
@@ -236,6 +235,7 @@ public class GameRenderer {
                     ghost.setGhostsEdibleTrue();
                 }
                 AssetLoader.powerPacman.play();
+                SoundService.stopSiren();
                 ProgressKeeper.addToEnergizerEaten();
             case '.':
                 Map.currMap.setCharAt(mapX + mapY, ' ');

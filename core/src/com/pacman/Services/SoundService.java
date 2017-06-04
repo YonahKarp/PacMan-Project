@@ -8,7 +8,7 @@ public class SoundService {
 
 
 
-    public static void setSirenIsPlaying(){ //replaces nomnom
+    public static void setSirenIsPlaying(){
         sirenIsPlaying = true;
         AssetLoader.siren.play();
         new java.util.Timer().schedule(
@@ -19,6 +19,11 @@ public class SoundService {
                         this.cancel();
                     }
                 }, 10350);
+    }
+
+    public static void stopSiren(){
+        sirenIsPlaying = false;
+        AssetLoader.siren.stop();
     }
 
 

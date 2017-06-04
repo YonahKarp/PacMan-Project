@@ -35,8 +35,6 @@ public class Player {
 
         startPos = new Vector2(x, y);
 
-        //startingX = (int)x;
-        //startingY = (int)y;
 
         this.rotation = rotation;
         playerLocation = new Vector2(x,y);
@@ -112,8 +110,9 @@ public class Player {
                 return  newDirection == 'u';
             case '>':  //send out of ghost house
                 if (this instanceof  Ghost)
-                    if(((Ghost)this).isEaten())
+                    if(((Ghost)this).isEaten()) {
                         return true;
+                    }
                 return !(newDirection == 'l' || newDirection == 'd');
             case '<':  //send out of ghost house
                 if (this instanceof  Ghost)

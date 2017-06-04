@@ -20,6 +20,8 @@ public class BlueGhost extends Ghost
     //set BlueGhost target to: draw line from redGhost to 2 tiles ahead of pacman (i.e 16px) and then extend that line double the length
     public Vector2 getTarget(Pacman pacman)
     {
+        if (_isEaten)
+            return startPos;
 
         Vector2 temp = new Vector2();
         Vector2 pacCoord = pacman.getCoord();
