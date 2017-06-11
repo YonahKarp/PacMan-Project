@@ -15,7 +15,6 @@ public class PinkGhost extends Ghost
         super(70, 95, animation);
     }
 
-    //set pinkGhost target to 4 tiles ahead of pacman (blinkingMode.e 32px)
     public Vector2 getTarget(Pacman pacman)
     {
         if (_isEaten)

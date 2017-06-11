@@ -92,6 +92,7 @@ public class ProgressKeeper {
 
     public static void goUpLevel() {
         level++;
+        AssetLoader.introMusic.play();
         dotsEaten = 0;
         energizerDotsEaten = 0;
     }

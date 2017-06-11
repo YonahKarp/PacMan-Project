@@ -19,8 +19,8 @@ public class Ghost extends Player {
     private Animation<TextureRegion> animation;
     private Animation<TextureRegion> edibleAnimation = AssetLoader.edibleGhost;
 
-    Timer blueMode;
-    Timer blinkingMode;
+    private Timer blueMode;
+    private Timer blinkingMode;
     private int _isEdible = 0;
     boolean _isEaten = false;
 
@@ -214,7 +214,7 @@ public class Ghost extends Player {
 
         this.x = x;
         this.y = y;
-        restTimer = 1;
+        restTimer = 3;
         _isEaten = false;
         _isEdible = 0;
     }

@@ -10,8 +10,11 @@ public class SoundService {
 
     public static void setSirenIsPlaying(){
         //check if siren is already playing from a previously eaten power pellet
-        if(!sirenIsPlaying)
+        if(!sirenIsPlaying) {
+            AssetLoader.siren.stop();
             AssetLoader.siren.play();
+
+        }
         sirenIsPlaying = true;
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {

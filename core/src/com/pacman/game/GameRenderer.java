@@ -234,6 +234,7 @@ public class GameRenderer {
                 for (Ghost ghost: ghosts) {
                     ghost.setGhostsEdibleTrue();
                 }
+                AssetLoader.powerPacman.stop();
                 AssetLoader.powerPacman.play();
                 SoundService.stopSiren();
                 ProgressKeeper.addToEnergizerEaten();
