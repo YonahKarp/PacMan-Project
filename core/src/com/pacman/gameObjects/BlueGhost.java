@@ -17,7 +17,7 @@ public class BlueGhost extends Ghost
         redGhost = rg;
     }
 
-    //set BlueGhost target to: draw line from redGhost to 2 tiles ahead of pacman (i.e 16px) and then extend that line double the length
+    //set BlueGhost target to: draw line from redGhost to 2 tiles ahead of pacman (blinkingMode.e 16px) and then extend that line double the length
     public Vector2 getTarget(Pacman pacman)
     {
         if (_isEaten)

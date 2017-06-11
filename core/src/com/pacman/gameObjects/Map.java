@@ -211,7 +211,7 @@ public class Map {
                     map[i/28][i%28] = AssetLoader.mazeTiles[0][7];
                     break;
                 /*case '$':
-                    map[i/28][i%28] = AssetLoader.cherry;
+                    map[blinkingMode/28][blinkingMode%28] = AssetLoader.cherry;
                     break;
                 */
                 case '.':

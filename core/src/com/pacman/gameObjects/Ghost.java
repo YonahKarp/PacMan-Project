@@ -2,12 +2,14 @@ package com.pacman.gameObjects;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.pacman.Services.AssetLoader;
 import com.pacman.Services.ProgressKeeper;
 import com.pacman.Services.SoundService;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by MNA on 3/22/2017.
@@ -17,6 +19,8 @@ public class Ghost extends Player {
     private Animation<TextureRegion> animation;
     private Animation<TextureRegion> edibleAnimation = AssetLoader.edibleGhost;
 
+    Timer blueMode;
+    Timer blinkingMode;
     private int _isEdible = 0;
     boolean _isEaten = false;
 
@@ -140,27 +144,33 @@ public class Ghost extends Player {
     public void setGhostsEdibleTrue() {
         _isEdible += 1;
 
+        blueMode = new Timer();
+        blinkingMode = new Timer();
+
         //after 10000 seconds we set invincible false
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
+        blueMode.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (isEdible())
+                    _isEdible -= 1;
 
-                        if (isEdible())
-                            _isEdible -= 1;
+                edibleAnimation = AssetLoader.edibleGhost;
+                this.cancel();
+            }
+        },  10000);
 
-                        edibleAnimation = AssetLoader.edibleGhost;
-                        this.cancel();
-                    }
-                }, 10000);
 
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
 
-                        edibleAnimation = AssetLoader.endingEdibleGhost;
-                        this.cancel();
+        blinkingMode.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                        if(_isEdible==1){  //if another power pellet wasn'blueMode eaten end the effect
+                            edibleAnimation = AssetLoader.endingEdibleGhost;
+                            this.cancel();
+                        }
+                        else{
+                            edibleAnimation = AssetLoader.edibleGhost;
+                        }
                     }
                 }, 8000);
     }
@@ -196,10 +206,15 @@ public class Ghost extends Player {
 
     public void resetGhost(float x, float y) {
         currentDirection = 'e';
+        //cancel timers if they are active so that if another pellet is eaten it'll start its frightened cycle anew
+        if(blueMode !=null)
+            blueMode.cancel();
+        if(blinkingMode !=null)
+             blinkingMode.cancel();
 
         this.x = x;
         this.y = y;
-        restTimer = 5;
+        restTimer = 1;
         _isEaten = false;
         _isEdible = 0;
     }
